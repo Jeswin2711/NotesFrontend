@@ -5,6 +5,11 @@ import DeletedNote from './DeletedNote'
 import { Link } from 'react-router-dom'
 import Search from './SearchBar';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 
 const TrashComponent = (props) => {
 
@@ -32,9 +37,21 @@ const TrashComponent = (props) => {
 
     const TrashList = ({trash}) =>
     {
-        return <div className='notes-list'>
+        return <div>
             {
-                trash.map((note) => <DeletedNote id={note.id} title={note.title} description={note.description} user_id={user_id}/>)
+                trash.length !== 0 ? (
+                    <div className='notes-list'>
+                        {
+                            trash.map((note) => <DeletedNote id={note.id} title={note.title} description={note.description} user_id={user_id}/>)
+                        }
+                    </div>
+                ) : (
+                    <div className='no-notes'>
+                        <h1>No Deleted Notes Here !!!</h1>
+                        <br/>
+                        <DeleteOutlineOutlinedIcon className="svg_icons"/>
+                    </div>
+                )
             }
         </div>
     }
@@ -53,7 +70,7 @@ const TrashComponent = (props) => {
                                             pathname: "/notes",
                                             state:props.location.state
                                             }} >
-                                            Notes
+                                            <LightbulbOutlinedIcon/> Notes
                                             </Link>
                         </li>
                         <br/>
@@ -62,7 +79,7 @@ const TrashComponent = (props) => {
                                             pathname: "/trash",
                                             state:props.location.state
                                             }} >
-                                            Trash
+                                            <DeleteOutlinedIcon/> Trash
                                             </Link>
                         </li>
                         <br/>
@@ -71,7 +88,7 @@ const TrashComponent = (props) => {
                                             pathname: "/archieve",
                                             state:props.location.state
                                             }} >
-                                            Archieve
+                                            <ArchiveOutlinedIcon/> Archieve
                                             </Link>
                         </li>
                     </ul>
@@ -79,7 +96,7 @@ const TrashComponent = (props) => {
             <div>
                 {
                     <TrashList
-                        trash={trash.filter((note) => note.title.toLowerCase().includes(search))}
+                        trash={trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))}
                     />
                 }
             </div>

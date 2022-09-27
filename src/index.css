@@ -38,6 +38,7 @@ code {
   border: none;
   background-color: rgb(233, 233, 233);
   width: 100%;
+  height: 40px;
 }
 
 .search {
@@ -63,9 +64,11 @@ code {
   white-space: pre-wrap;
   word-wrap: break-word;
   border-style: groove;
-  height: 140px;
-  width: 200px;
+  justify-content: space-between;
+  margin-right: auto;
+  margin-left: auto;
 }
+
 
 .notes-list {
   display: grid;
@@ -135,6 +138,17 @@ p.hover
   shape-outside: -moz-linear-gradient();
 }
 
+.addnote textarea
+{
+  width: 500px;
+  margin-left: 325px;
+  border: none;
+  background-color:rgb(231, 228, 228);
+  height: 40px;
+  border-radius: 5px;
+  shape-outside: -moz-linear-gradient();
+}
+
 .addnote button
 {
   background-color: transparent; /* Green */
@@ -173,21 +187,6 @@ li.nav-item {
   
 }
 
-.updatenote
-{
-  background-color: aquamarine;
-}
-
-.updatenote input:focus {
-  outline: none;
-}
-  
-.updatenote input {
-  border: none;
-  background-color: rgb(233, 233, 233);
-  width: 100%;
-}
-
 .pin
 {
   flex-direction: row;
@@ -201,7 +200,7 @@ li.nav-item {
   grid-template-columns: repeat(auto-fill,
       minmax(210px, 1fr));
   word-break: break-all;
-  margin-top: 160px;
+  margin-top: 180px;
   margin-left: 280px;
 }
 
@@ -214,7 +213,7 @@ li.nav-item {
 .logout
 {
   margin-left: 1400px;
-  margin-top: -30px;
+  margin-top: -45px;
 }
 
 .top
@@ -224,9 +223,11 @@ li.nav-item {
   display: flex;
 }
 
+
 .left-bar
 {
-  background-color: rgb(254, 254, 254);
+  background-color: wheat;
+  padding: 50px;
   height: 270px;
   width: 280px;
   border-radius: 10px;
@@ -234,9 +235,87 @@ li.nav-item {
   font-family: sans-serif;
   font-size: larger;
   margin-top: 60px;
-  position: absolute;
-  margin-top: 150px;
+  position: fixed;
   color: black;
-  text-decoration: none;
 }
 
+.update-note input:focus {
+  outline: none;
+}
+
+.update-note textarea:focus
+{
+  outline: none;
+}
+
+.update-note button:focus
+{
+  outline: none;
+  cursor: pointer;
+}
+
+.update-note
+{
+  border: none;
+  margin-top: 10px;
+  font-family: sans-serif;
+  font-size: large;
+  border-style: groove;
+  border-radius: 8px;
+}
+
+.update-note input
+{
+  max-width: auto;
+  max-height: auto;
+  border: none;
+  margin-left: 10px;
+}
+
+.update-note textarea
+{
+  max-width: auto;
+  max-height: auto;
+  border: none;
+  margin-left: 8px;
+}
+
+.update-note button
+{
+  background-color: transparent;
+  border: none;
+}
+
+.no-notes
+{
+  text-align: center;
+  margin-top: 150px;
+}
+
+
+.svg_icons {
+  transform: scale(15.8);
+  margin-top: 200px;
+}
+
+.logo
+{
+  width: 5px;
+  height: 5px;
+
+}
+
+.left-bar-1
+{
+  background-color: wheat;
+  padding: 50px;
+  height: 270px;
+  width: 250px;
+  border-radius: 10px;
+  text-align: justify;
+  font-family: sans-serif;
+  font-size: larger;
+  margin-top: -150px;
+  position: fixed;
+  color: black;
+}

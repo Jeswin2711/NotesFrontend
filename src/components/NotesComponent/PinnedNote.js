@@ -1,8 +1,11 @@
-import React from 'react'
-import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
+import React , { useState} from 'react'
+import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import axios from 'axios';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const PinnedNote = ({id , title , description}) => {
+const PinnedNote = ({id , title , description , handleDelete}) => {
+
+    const [open, setopen] = useState(false)
 
     const unPin = async () =>
     {
@@ -13,11 +16,21 @@ const PinnedNote = ({id , title , description}) => {
         window.location.reload(true)
     }
 
+
+    function DropDownItem({id})
+    {
+        return <div className='dropdown'>
+            <p onClick={() => {
+                handleDelete(id)
+            }}>Delete</p>
+        </div>
+    }
+
   return (
     <div className='notes'>
         <p className='unpin' onClick={() => {
             unPin(id)
-        }}><CancelRoundedIcon/></p>
+        }}><PushPinRoundedIcon/></p>
         <p>
             {
                 title
@@ -28,6 +41,13 @@ const PinnedNote = ({id , title , description}) => {
                 description
             }
         </p>
+        <div className='option'>
+            <MoreVertIcon onClick={() => {setopen(!open)}}/>
+            {
+                open ? <DropDownItem id={id}/>
+                : null
+            }
+        </div>
     </div>
   )
 }

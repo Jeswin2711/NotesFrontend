@@ -17,6 +17,7 @@
     "react-bootstrap-dropdown-menu": "^1.1.23",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "reactjs-popup": "^2.0.5",
     "rsuite": "^5.18.1",
     "web-vitals": "^2.1.4"
   },

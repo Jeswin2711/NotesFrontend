@@ -2,6 +2,7 @@ import React,{useEffect, useState} from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import axios from 'axios';
 import PushPinOutlinedIcon from '@mui/icons-material/PushPinOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Note = ({id ,title ,description , handleDelete , handleArchieve , username , handlePin}) => {
 
@@ -17,8 +18,6 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
     useEffect(() => {
         settitle(title)
         setdescription(description)
-        console.log("Note title" + notetitle)
-        console.log("note " + notedescription)
     } , [])
 
     function DropDownItem({id})
@@ -34,15 +33,17 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
     }
 
 
-    function updateNote()
+    async function updateNote()
     {
-        axios.put(
+        await axios.put(
             `http://localhost:8080/user/${username}/update/${id}`,
             {
                 title : notetitle , 
                 description : notedescription
             }
         )
+
+        window.location.reload(true)
     }
 
     
@@ -50,17 +51,22 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
   return (
     <div>
         <div>
-            {editable ? <section className='notes updatenote'>
-                    <input value={notetitle} onChange={
-                        (e) => settitle(e.target.value)
-                    }/>
-                    <input value={notedescription} onChange={(e) => setdescription(e.target.value)}/>
-                    <button onClick={updateNote()} >Save</button>
+            {editable ? ( 
+                <section className='update-note'>
+                         <p className='close'>
+                            <button onClick={() => {window.location.reload(true)}}><CloseIcon/></button>
+                        </p>
+                        <input value={notetitle} onChange={
+                            (e) => settitle(e.target.value)
+                        }/>
+                        <textarea value={notedescription} onChange={(e) => setdescription(e.target.value)}/>
+                        <button onClick={() => {
+                            updateNote()
+                        }} className="update">update</button>
                 </section>
-                : null
-}
-        </div>
-        <div className='notes' key={id}>
+                )
+                : (
+                    <div className='notes' key={id}>
                                         <div className='pin'>
                                             <p onClick={() => {
                                             handlePin(id)
@@ -81,7 +87,10 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                                                 : null
                                             }
                                         </div>
-        </div>
+                        </div>
+                        )
+            }
+        </div>                           
     </div>
   )
 }

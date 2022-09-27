@@ -124,6 +124,7 @@ const NotesPage = (props) =>
     }
 
     return <div>
+                <img src="https://play-lh.googleusercontent.com/9bJoeaPbGTB8Tz_h4N-p-6ReRd8vSS-frZb2tmJulaGIoTKElKj3zpmcFJvnS96ANZP5=w600-h300-pc0xffffff-pd" width="130px" height="60px"/>
                 <div>
                     <Search handleSearch={setsearch} />
                     <p onClick={() => {logout()}} className="logout"><a href='/login'><LogoutIcon/></a></p>
@@ -138,7 +139,7 @@ const NotesPage = (props) =>
                         :
                         <div>
                         <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
-                        <input type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
+                        <textarea type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
                         <button disabled={!title || !description ? true : false } onClick={SaveNote}>close</button>
                         </div>
                     }
@@ -147,12 +148,12 @@ const NotesPage = (props) =>
                     {
                         pinned.map((note) => 
                         <div key={note.id}>
-                            <PinnedNote id = {note.id} title = {note.title} description = {note.description}/>
+                            <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={deleteNote}/>
                         </div>
                         )
                     }
                  </div>
-                <div className='left-bar'>
+                <div className='left-bar-1'>
                     <ul className='sidebar'>
                         <li className='nav-item'>
                             <Link to={{ 
@@ -185,7 +186,7 @@ const NotesPage = (props) =>
                 <div>
                 {
                     <NotesList
-                        notes={notes.filter((note) => note.title.toLowerCase().includes(search))}
+                        notes={notes.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))}
                     />
                 }
             </div>

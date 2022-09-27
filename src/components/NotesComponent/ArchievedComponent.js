@@ -5,6 +5,10 @@ import ArchievedNote from './ArchievedNote'
 import { Link } from 'react-router-dom'
 import Search from './SearchBar';
 import LogoutIcon from '@mui/icons-material/Logout';
+import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
 
 const ArchievedComponent = (props) => {
 
@@ -31,16 +35,29 @@ const ArchievedComponent = (props) => {
 
     useEffect(() => {
         axios.get(USER_ID_URL).then((res) => setuser_id(res.data))
-        console.log("-----")
         getArchieve();
     }, [user_id])
     
 
     const ArchieveList = ({archieved}) =>
     {
-        return <div className='notes-list'>
+        return <div>
             {
-                archieved.map((note) => <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={user_id}/>)
+                archieved.length !== 0 ? 
+                (
+                        <div className='notes-list'>
+                            {
+                                archieved.map((note) => <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={user_id}/>)
+                            }
+                        </div>
+                ) :
+                (
+                        <div className='no-notes'>
+                            <h1>No Archived Notes Here !!!</h1>
+                            <br/>
+                            <ArchiveTwoToneIcon className="svg_icons"/>
+                    </div>
+                )
             }
         </div>
     }
@@ -58,7 +75,7 @@ const ArchievedComponent = (props) => {
                                             pathname: "/notes",
                                             state:props.location.state
                                             }} >
-                                            Notes
+                                            <LightbulbOutlinedIcon/> Notes
                                             </Link>
                         </li>
                         <br/>
@@ -67,7 +84,7 @@ const ArchievedComponent = (props) => {
                                             pathname: "/trash",
                                             state:props.location.state
                                             }} >
-                                            Trash
+                                            <DeleteOutlinedIcon/> Trash
                                             </Link>
                         </li>
                         <br/>
@@ -76,7 +93,7 @@ const ArchievedComponent = (props) => {
                                             pathname: "/archieve",
                                             state:props.location.state
                                             }} >
-                                            Archieve
+                                            <ArchiveOutlinedIcon/> Archieve
                                             </Link>
                         </li>
                     </ul>
@@ -84,7 +101,7 @@ const ArchievedComponent = (props) => {
             <div>
             {
                 <ArchieveList
-                    archieved={archieved.filter((note) => note.title.toLowerCase().includes(search))}
+                    archieved={archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))}
                 />
             }
             </div>
