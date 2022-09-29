@@ -37,19 +37,17 @@ code {
 .search input {
   border: none;
   background-color: rgb(233, 233, 233);
-  width: 100%;
-  height: 40px;
+  width: 200%;
+  height: 30px;
 }
 
 .search {
   display: flex;
-  align-items: center;
   background-color: rgb(233, 233, 233);
   border-radius: 10px;
   padding: 5px;
-  margin-left: 280px;
-  margin-right: 500px;
-  margin-top: 15px;
+  margin-left: 190px;
+  width: 50%;
   align-items: center;
 }
 
@@ -76,7 +74,7 @@ code {
   grid-template-columns: repeat(auto-fill,
       minmax(250px, 1fr));
   word-break: break-all;
-  margin-top: 100px;
+  margin-top: 140px;
   margin-left: 280px;
 }
 
@@ -119,7 +117,7 @@ p.hover
   position: absolute;
   display: flex;
   margin-left: 230px;
-  margin-top: 40px;
+  margin-top: 80px;
 }
 
 .addnote input:focus {
@@ -183,8 +181,13 @@ p.hover
 
 li.nav-item {
   list-style-type: none;
-  scroll-padding: 20px;
-  
+  color: #000;
+}
+
+ul.side-bar
+{
+  color: #000;
+  font-family: sans-serif;
 }
 
 .pin
@@ -196,12 +199,17 @@ li.nav-item {
 .pinned-notes
 {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 0.5rem;
   grid-template-columns: repeat(auto-fill,
-      minmax(210px, 1fr));
+      minmax(170px, 1fr));
   word-break: break-all;
   margin-top: 180px;
-  margin-left: 280px;
+}
+.pinned-notes h6
+{
+  font-family: sans-serif;
+  margin-left: 150%;
+  margin-right: -100%;
 }
 
 .unpin
@@ -236,7 +244,6 @@ li.nav-item {
   font-size: larger;
   margin-top: 60px;
   position: fixed;
-  color: black;
 }
 
 .update-note input:focus {
@@ -293,11 +300,6 @@ li.nav-item {
 }
 
 
-.svg_icons {
-  transform: scale(15.8);
-  margin-top: 200px;
-}
-
 .logo
 {
   width: 5px;
@@ -319,3 +321,65 @@ li.nav-item {
   position: fixed;
   color: black;
 }
+
+.tab
+{
+  font-family: sans-serif;
+  color: #000;
+}
+
+.notes-error
+{
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 300px;
+}
+
+.forgot-link
+{
+  font-family: sans-serif;
+  font-size: smaller;
+}
+
+.forgot-password
+{
+  text-align: center;
+  margin-top: 200px;
+  border-style: groove;
+  margin-right: 550px;
+  margin-left: 550px;
+  padding: 40px;
+}
+
+.forgot-password p
+{
+  margin-left: 160px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.user-dropdown
+{
+  border-style: groove;
+  margin-left: -100px;
+  text-align: center;
+}
+
+.user
+{
+  flex-direction: row;
+  align-self: flex-end;
+  margin-left: 95%;
+  cursor:pointer;
+  margin-top: -40px;
+}
+
+.note-page
+{
+  position:unset;
+  overflow: hidden;
+  font-family: sans-serif;
+  width: auto;
+  height: auto;
+}
+

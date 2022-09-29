@@ -56,7 +56,7 @@ const RegisterUser = () => {
                             <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                             <h2>Sign Up</h2>
                             <FormControl>
-                                <TextField required value={userName} onChange={(e) => setusername(e.target.value)} id="outlined-required" label="Username" /><br />
+                                <TextField required value={userName} onChange={(e) => setusername(e.target.value)} id="outlined-required" label="Username" autoComplete="off"/><br />
                                 <TextField
                                     required
                                     id="outlined-password-input"
@@ -65,8 +65,8 @@ const RegisterUser = () => {
                                     autoComplete="current-password"
                                     value={passWord} onChange={(e) => setpassword(e.target.value)}
                                 /><br />
-                                <TextField required value={email} onChange={(e) => setemail(e.target.value)} id="outlined-required" label="Email" /><br />
-                                <TextField required value={phoneNumber} onChange={(e) => setphonenumber(e.target.value)} id="outlined-required" label="Phonenumber" /><br />
+                                <TextField required value={email} onChange={(e) => setemail(e.target.value)} id="outlined-required" label="Email" autoComplete="off"/><br />
+                                <TextField required value={phoneNumber} onChange={(e) => setphonenumber(e.target.value)} id="outlined-required" label="Phonenumber" autoComplete="off"/><br />
                                 <Button type="button" onClick={register} variant="contained" color="success" >Register</Button>
                             </FormControl>
                             <br/>

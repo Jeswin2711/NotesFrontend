@@ -7,9 +7,9 @@ import axios from 'axios';
 const DeletedNote = ({id ,title ,description , user_id}) => {
 
 
-    const handleRestore = () =>
+    const handleRestore = async () =>
     {
-        axios.post(
+        await axios.post(
             `http://localhost:8080/user/${user_id}/restore/${id}` , 
             {} , 
             {
@@ -23,9 +23,9 @@ const DeletedNote = ({id ,title ,description , user_id}) => {
     }
 
 
-    const handleDelete = () =>
+    const handleDelete = async () =>
     {
-        axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`).then((res) => console.log(res))
+        await axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`).then((res) => console.log(res))
         {window.location.reload(true)}
     }
 

@@ -24,7 +24,6 @@ const TrashComponent = (props) => {
     const USER_ID_URL = `http://localhost:8080/user/${props.location.state}`
 
 
-
     useEffect(() => {
          axios.get(USER_ID_URL).then((res) => setuser_id(res.data))
          axios.get(`http://localhost:8080/user/${user_id}/getdeleted`).then((res) => settrash(res['data'].data))
@@ -70,7 +69,9 @@ const TrashComponent = (props) => {
                                             pathname: "/notes",
                                             state:props.location.state
                                             }} >
-                                            <LightbulbOutlinedIcon/> Notes
+                                            <p className='tab'>
+                                                    <LightbulbOutlinedIcon/> Notes
+                                                </p>
                                             </Link>
                         </li>
                         <br/>
@@ -79,7 +80,9 @@ const TrashComponent = (props) => {
                                             pathname: "/trash",
                                             state:props.location.state
                                             }} >
-                                            <DeleteOutlinedIcon/> Trash
+                                             <p className='tab'>
+                                                            <DeleteOutlinedIcon/> Trash
+                                                    </p>
                                             </Link>
                         </li>
                         <br/>
@@ -88,7 +91,9 @@ const TrashComponent = (props) => {
                                             pathname: "/archieve",
                                             state:props.location.state
                                             }} >
-                                            <ArchiveOutlinedIcon/> Archieve
+                                            <p className='tab'>
+                                                            <ArchiveOutlinedIcon/> Archieve 
+                                                    </p>
                                             </Link>
                         </li>
                     </ul>

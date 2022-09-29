@@ -2,7 +2,6 @@ import axios from 'axios';
 import React from 'react'
 import { useState , useEffect } from 'react';
 import Search from './SearchBar';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Note from './Note';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
@@ -10,10 +9,14 @@ import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import PinnedNote from './PinnedNote';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ResetPassword from '../ResetPassword';
 
 const NotesPage = (props) => 
 {
     const [notes, setnotes] = useState([])
+
+    const [pinned, setpinned] = useState([])
 
     const [search, setsearch] = useState('');
 
@@ -25,13 +28,14 @@ const NotesPage = (props) =>
 
     const [description, setdescription] = useState('')
 
-    const [pinned, setpinned] = useState([])
+    const [open, setopen] = useState(false)
 
 
     const USER_ID_URL = `http://localhost:8080/user/${props.location.state}`
 
 
     useEffect(() => {
+
         axios.get(
             USER_ID_URL
         )
@@ -45,7 +49,7 @@ const NotesPage = (props) =>
                 setnotes(data);
             })}
         )
-        axios.get(`http://localhost:8080/user/getpinned`).then((res) => {
+        axios.get(`http://localhost:8080/user/${user_id}/getpinned`).then((res) => {
             setpinned(res.data.data)
         })
     },[user_id])
@@ -60,7 +64,6 @@ const NotesPage = (props) =>
         window.location.reload(true)
 
         setnotes(notes.filter((note) => note.id !== id))
-        
     }
 
     const handlePin = async (id) =>
@@ -76,7 +79,7 @@ const NotesPage = (props) =>
 
     const archieveNote = async (id) => {
 
-        const ARCHIEVE_URL = await"http://localhost:8080/user" + `/archieve/${props.location.state}/${id}`;
+        const ARCHIEVE_URL = await "http://localhost:8080/user" + `/archieve/${props.location.state}/${id}`;
 
         await axios.post(
             ARCHIEVE_URL, {} ,
@@ -86,7 +89,9 @@ const NotesPage = (props) =>
                     'Content-Type': 'application/json'
                 }
             }
-        ).then((res) => console.log(res));window.location.reload(true)
+        ).then((res) => console.log(res));
+        
+        window.location.reload(true)
 
     }
 
@@ -113,6 +118,7 @@ const NotesPage = (props) =>
         localStorage.removeItem(`${props.location.state}`)
     }
 
+
     const NotesList = ({notes}) =>
     {
         return <div className='notes-list'>
@@ -123,73 +129,115 @@ const NotesPage = (props) =>
         </div>
     }
 
-    return <div>
-                <img src="https://play-lh.googleusercontent.com/9bJoeaPbGTB8Tz_h4N-p-6ReRd8vSS-frZb2tmJulaGIoTKElKj3zpmcFJvnS96ANZP5=w600-h300-pc0xffffff-pd" width="130px" height="60px"/>
-                <div>
-                    <Search handleSearch={setsearch} />
-                    <p onClick={() => {logout()}} className="logout"><a href='/login'><LogoutIcon/></a></p>
-                 </div>
-                 <div className='addnote'>
-                    {
-                        visible === false
-                        ?
-                        <div>
-                        <input type="text" placeholder="Take a note..." onClick={() => setvisible(true)} />
-                        </div>
-                        :
-                        <div>
-                        <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
-                        <textarea type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
-                        <button disabled={!title || !description ? true : false } onClick={SaveNote}>close</button>
-                        </div>
-                    }
-                </div>
-                <div className='pinned-notes'>
-                    {
-                        pinned.map((note) => 
-                        <div key={note.id}>
-                            <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={deleteNote}/>
-                        </div>
-                        )
-                    }
-                 </div>
-                <div className='left-bar-1'>
-                    <ul className='sidebar'>
-                        <li className='nav-item'>
-                            <Link to={{ 
-                                            pathname: "/notes",
-                                            state:props.location.state
-                                            }} >
-                                                <LightbulbOutlinedIcon/> Notes
-                                            </Link>
-                            </li>
-                            <br/>
-                            <li className='nav-item'>
-                                <Link to={{ 
-                                                pathname: "/trash",
+
+    function DropDownItem()
+    {
+        return <div className='user-dropdown'>
+            <Link to={{ 
+                                                pathname: "/reset-password",
                                                 state:props.location.state
                                                 }} >
-                                                <DeleteOutlinedIcon/> Trash
+                                                    <p> 
+                                                        ResetPassword
+                                                    </p>
                                                 </Link>
-                            </li>
-                            <br/>
+            <p onClick={() => {logout()}}>
+                <a href='/login'>Logout</a>
+                </p>
+        </div>
+    }
+
+
+    return <div className='note-page'>
+        {
+            localStorage.getItem(props.location.state) !== null ? (
+                <div>
+                    <div>
+                        <img src="https://play-lh.googleusercontent.com/9bJoeaPbGTB8Tz_h4N-p-6ReRd8vSS-frZb2tmJulaGIoTKElKj3zpmcFJvnS96ANZP5=w600-h300-pc0xffffff-pd" width="130px" height="60px"/>
+                        <p className='user'>
+                            <AccountCircleIcon onClick={() => {setopen(!open)}}/>
+                            {
+                                open ? <DropDownItem/>
+                                : null
+                            }
+                        </p>
+                    </div>  
+                    <div>
+                        <Search handleSearch={setsearch} />
+                    </div>
+                    <div className='addnote'>
+                        {
+                            visible === false
+                            ?
+                            <div>
+                            <input type="text" placeholder="Take a note..." onClick={() => setvisible(true)} />
+                            </div>
+                            :
+                            <div>
+                            <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
+                            <textarea type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
+                            <button disabled={!title || !description ? true : false } onClick={SaveNote}>close</button>
+                            </div>
+                        }
+                    </div>
+                    <div className='pinned-notes'>
+                        {
+                            pinned.map((note) => 
+                            <div key={note.id}>
+                                <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={deleteNote}/>
+                            </div>
+                            )
+                        }
+                    </div>
+                    <div className='left-bar-1'>
+                        <ul className='side-bar'>
                             <li className='nav-item'>
                                 <Link to={{ 
-                                                pathname: "/archieve",
+                                                pathname: "/notes",
                                                 state:props.location.state
                                                 }} >
-                                                <ArchiveOutlinedIcon/> Archieve
+                                                    <p className='tab'>
+                                                        <LightbulbOutlinedIcon/> Notes
+                                                    </p>
                                                 </Link>
-                            </li>
-                    </ul>
-                </div>
-                <div>
-                {
-                    <NotesList
-                        notes={notes.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))}
-                    />
-                }
+                                </li>
+                                <br/>
+                                <li className='nav-item'>
+                                    <Link to={{ 
+                                                    pathname: "/trash",
+                                                    state:props.location.state
+                                                    }} >
+                                                        <p className='tab'>
+                                                                <DeleteOutlinedIcon/> Trash
+                                                        </p>
+                                                    </Link>
+                                </li>
+                                <br/>
+                                <li className='nav-item'>
+                                    <Link to={{ 
+                                                    pathname: "/archieve",
+                                                    state:props.location.state
+                                                    }} >
+                                                        <p className='tab'>
+                                                                <ArchiveOutlinedIcon/> Archieve 
+                                                        </p>
+                                                    </Link>
+                                </li>
+                        </ul>
+                    </div>
+                    <div>
+                    {
+                        <NotesList
+                            notes={notes.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))}
+                        />
+                    }
+                    </div>
             </div>
+            ) : <div className='notes-error'>
+                <h1>Internal Server Error</h1>
+                <h5>Login again <a href='/login'>here</a></h5>
+            </div>
+        }
         </div>
 }
  

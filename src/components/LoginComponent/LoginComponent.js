@@ -29,7 +29,6 @@ const LoginComponent = () => {
     const login = async (e) => {
         e.preventDefault();
         const credential = { userName, passWord }
-        console.log("asdadsasdas")
         try {
             await axios.post(
                 LOGIN_URL, credential,
@@ -65,7 +64,7 @@ const LoginComponent = () => {
                                 <h1>Success!</h1>
                                 
                                 <Link to={{ 
-                                    pathname: "/notes", 
+                                    pathname: "/home", 
                                     state: userName
                                     }}>
                                     <HomeOutlinedIcon/>
@@ -93,6 +92,7 @@ const LoginComponent = () => {
                                 value={passWord} onChange={(e) => setpassword(e.target.value)}
                             />
                             <br/>
+                            <a href="/forgot-password" className="forgot-link">Forgot Password?</a>
                             <br/>
                             <Button onClick={login} disabled={!userName || !passWord ? true : false}><LoginTwoToneIcon/></Button>
                             <br/>

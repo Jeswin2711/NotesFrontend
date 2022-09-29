@@ -75,7 +75,9 @@ const ArchievedComponent = (props) => {
                                             pathname: "/notes",
                                             state:props.location.state
                                             }} >
-                                            <LightbulbOutlinedIcon/> Notes
+                                            <p className='tab'>
+                                                    <LightbulbOutlinedIcon/> Notes
+                                                </p>
                                             </Link>
                         </li>
                         <br/>
@@ -84,7 +86,9 @@ const ArchievedComponent = (props) => {
                                             pathname: "/trash",
                                             state:props.location.state
                                             }} >
-                                            <DeleteOutlinedIcon/> Trash
+                                            <p className='tab'>
+                                                            <DeleteOutlinedIcon/> Trash
+                                                    </p>
                                             </Link>
                         </li>
                         <br/>
@@ -93,7 +97,9 @@ const ArchievedComponent = (props) => {
                                             pathname: "/archieve",
                                             state:props.location.state
                                             }} >
-                                            <ArchiveOutlinedIcon/> Archieve
+                                            <p className='tab'>
+                                                            <ArchiveOutlinedIcon/> Archieve 
+                                                    </p>
                                             </Link>
                         </li>
                     </ul>
