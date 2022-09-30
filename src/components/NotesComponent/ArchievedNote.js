@@ -24,14 +24,12 @@ const ArchievedNote = ({id ,title ,description , user_id}) => {
                     }
                 }
             ).then((res) => console.log(res));
-            {window.location.reload(true)}
         }
 
 
     const handleDelete = () =>
     {
         axios.delete(`http://localhost:8080/user/${user_id}/delete/${id}`).then((res) => console.log(res))
-        {window.location.reload(true)}
     }
 
 

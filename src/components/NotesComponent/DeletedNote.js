@@ -19,14 +19,13 @@ const DeletedNote = ({id ,title ,description , user_id}) => {
             }
             
         ).then((res) => console.log(res))
-        {window.location.reload(true)}
     }
 
 
     const handleDelete = async () =>
     {
         await axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`).then((res) => console.log(res))
-        {window.location.reload(true)}
+        
     }
 
 

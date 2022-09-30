@@ -45,6 +45,8 @@ const HomeComponent = (props) => {
 
     const [description, setdescription] = useState('')
 
+    const [open, setopen] = useState(false)
+
 
     const GET_USET_ID_URL = `http://localhost:8080/user/${props.location.state}`
 
@@ -133,6 +135,29 @@ const HomeComponent = (props) => {
         window.location.reload(true)
     }
 
+    function DropDownItem()
+    {
+        return <div className='account-dropdown'>
+            <Link to={{ 
+                                                pathname: "/reset-password",
+                                                state:props.location.state
+                                                }} >
+                                                    <p> 
+                                                        ResetPassword
+                                                    </p>
+                                                </Link>
+            <p onClick={() => {logout()}}>
+                <a href='/login'>Logout</a>
+                </p>
+        </div>
+    }
+
+    const logout = () => 
+    {
+        localStorage.removeItem(`${props.location.state}`)
+    }
+
+
 
 
   return (
@@ -154,7 +179,10 @@ const HomeComponent = (props) => {
                 )
             }
             <Search handleSearch={setsearch} />
-            <p className='account'><AccountCircleIcon/></p>
+            <p className='account' onClick={() => {setopen(!open)}}><AccountCircleIcon/></p>
+            {
+                open ? <DropDownItem /> : null
+            }
             <div className='side-bar'>
                 <ul>
                     {

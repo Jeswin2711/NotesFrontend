@@ -29,7 +29,6 @@ const ForgotPassword = () => {
 
         const OTP_URL = `http://localhost:8080/user/send-otp/${email}`
 
-        console.log("---Email" , email)
         try {
             axios.post(
                 OTP_URL , email ,
@@ -53,8 +52,8 @@ const ForgotPassword = () => {
         }
 
         try {
-            axios.put(
-                `http://localhost:8080/user/reset-password/${email}`,
+            axios.post(
+                `http://localhost:8080/user/forgot-password/${email}`,
                 resetPasswordDto
             )
             .then((res) => console.log("kjsdhsgkblasgdasfhjdshnodfsohpsd o"+res))

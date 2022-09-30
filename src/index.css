@@ -383,3 +383,43 @@ ul.side-bar
   height: auto;
 }
 
+.reset
+{
+  border-style: groove;
+  padding: 8px;
+  text-align: center;
+  margin-top: 25%;
+  margin-left: 40%;
+  margin-right: 40%;
+  display: flex;
+}
+
+.reset button
+{
+  border-style: none;
+  font-family: sans-serif;
+  border-radius: 10px;
+  margin-left: 10%;
+  background-color: transparent;
+}
+
+.after-reset
+{
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-left: 45%;
+  font-size: xx-large;
+}
+
+.invalid
+{
+  background-color: lightcoral;
+}
+
+.err
+{
+  color: red;
+  font-size: x-small;
+  margin-left: 10%;
+  margin-right: 10%;
+}

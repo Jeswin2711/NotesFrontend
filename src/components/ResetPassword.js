@@ -2,6 +2,7 @@ import axios from 'axios'
 import React , {useState , useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 
+
 const ResetPassword = (props) => {
 
     const [newPassword, setnewPassword] = useState('')
@@ -13,6 +14,8 @@ const ResetPassword = (props) => {
 
     const USER_ID_URL = `http://localhost:8080/user/${props.location.state}`
 
+    const URL = `http://localhost:8080/user/reset-password/${user_id}` 
+
 
     useEffect(() => {
 
@@ -22,28 +25,20 @@ const ResetPassword = (props) => {
         .then((res) => {
             setuser_id(res.data)}
         )
-    },[user_id])
-
-
-    console.log("---"+localStorage.getItem(props.location.state))
+    },[])
     
 
     const setPassword = async () =>
     {
         const requestBody = {passWord : newPassword}
 
+        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem(props.location.state) 
+
         try {
-            await axios.put(
-                `http://localhost:8080/user/reset-password/${user_id}` , requestBody ,
-                {
-                    headers:{
-                        'Authorization': 'Bearer '+localStorage.getItem(props.location.state)
-                    }
-            }
+            const req = await axios.put(
+                URL , requestBody
             )
-            .then(
-                (res) => console.log(res)
-                )
+            req.then((res) => console.log(res))
             setsuccess(true) 
         } catch (error) {
             console.log(error)
@@ -54,8 +49,8 @@ const ResetPassword = (props) => {
   return (
     <div>
         {
-            success ? <a href='/login'>Login Again</a> : ( 
-                <div>
+            success ? <a href='/login' className='after-reset'>Login Again</a> : ( 
+                <div className='reset'>
                     <TextField
                     id="outlined-password-input"
                     label="New Password"

@@ -111,3 +111,25 @@
     font-family: sans-serif;
     margin-left: 20%;
 }
+
+.account-dropdown
+{
+    position: fixed;
+    border-style: groove;
+    flex-direction: row;
+    margin-left: 91%;
+    margin-top: 50px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    text-decoration: none;
+    text-align: center;
+    background-color: lightcyan;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.account-dropdown padding:hover
+{
+    background-color: transparent;
+}
+
