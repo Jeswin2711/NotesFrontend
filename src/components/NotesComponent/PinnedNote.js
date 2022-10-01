@@ -3,14 +3,23 @@ import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import axios from 'axios';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const PinnedNote = ({id , title , description , handleDelete}) => {
+const PinnedNote = ({id , title , description , handleDelete , username}) => {
 
     const [open, setopen] = useState(false)
+
+    const headers = {
+        headers : {
+            Authorization :`Bearer ${localStorage.getItem(username)}`,
+            "Access-Control-Max-Age":1728000
+            
+        }
+    } 
 
     const unPin = async () =>
     {
         await axios.post(
-            `http://localhost:8080/user/pin/${id}`
+            `http://localhost:8080/user/pin/${id}`, {} ,
+            headers
         )
 
         window.location.reload(true)

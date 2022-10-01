@@ -32,7 +32,6 @@ const DeletedNote = ({id ,title ,description , user_id , username}) => {
     {
         await axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`,headers).then((res) => console.log(res))
         window.location.reload(true)
-        
     }
 
 

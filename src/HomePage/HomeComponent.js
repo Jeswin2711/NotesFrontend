@@ -41,6 +41,8 @@ const HomeComponent = (props) => {
 
     const [visible, setvisible] = useState(false)
 
+    const [showpinned, setshowpinned] = useState(false)
+
     const [title, settitle] = useState('')
 
     const [description, setdescription] = useState('')
@@ -131,10 +133,9 @@ const HomeComponent = (props) => {
     {
 
         await axios.post(
-            `http://localhost:8080/user/pin/${id}`,
+            `http://localhost:8080/user/pin/${id}`,{},
             headers
         )
-
         window.location.reload(true)
     }
 
@@ -159,8 +160,6 @@ const HomeComponent = (props) => {
     {
         localStorage.removeItem(`${props.location.state}`)
     }
-
-
 
 
   return (
@@ -196,7 +195,8 @@ const HomeComponent = (props) => {
                                             setlogoarea(null);
                                             setshownotes(true);
                                             setshowdeleted(false);
-                                            setshowarchieved(false)
+                                            setshowarchieved(false);
+                                            setshowpinned(true)
                                             }} className='bar-icon'>
                                         <LightbulbOutlinedIcon/>
                                         <p className='option'> 
@@ -208,6 +208,7 @@ const HomeComponent = (props) => {
                                         setshownotes(false);
                                         setshowdeleted(false);
                                         setshowarchieved(true);
+                                        setshowpinned(false)
                                         }} className='bar-icon'>
                                             <ArchiveOutlinedIcon/> 
                                             <p className='option'>Archieve</p>
@@ -216,6 +217,7 @@ const HomeComponent = (props) => {
                                         setshowdeleted(true);
                                         setshownotes(false);
                                         setshowarchieved(false)
+                                        setshowpinned(false)
                                         setlogoarea('Trash')}} className='bar-icon'>
                                             <DeleteOutlinedIcon/><p className='option'>Trash</p> 
                                     </li>
@@ -250,37 +252,47 @@ const HomeComponent = (props) => {
                     </div>
                 ) : null
             }
-        </div>
-            {
-                pinned.length !== 0 ? (
-                    <div>
-                        <div className='pinned-notes'>
-                            <h6>
-                                Pinned
-                            </h6>
-                            <br/>
-                            {
-                                pinned.map((note) => 
-                                <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={handleDelete}/>
-                                )
-                            }
-                            <br/>
+        </div> 
+        {
+        showpinned ? (
+                    pinned.length !== 0 ? (
+                        <div>
+                            <div className='pinned-notes'>
+                                <h6>
+                                    Pinned
+                                </h6>
+                                <br/>
+                                {
+                                    pinned.map((note) => 
+                                    <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={handleDelete} username={props.location.state}/>
+                                    )
+                                }
+                                <br/>
+                            </div>
+                            <h6 className='other'>Others</h6>
                         </div>
-                        <h6 className='other'>Others</h6>
-                    </div>
-                ) : null
-                    
-            }
+                    ) : null
+                ): null
+                }
+
         <div className='notes-list'>
             {
-                shownotes ? (
-                    notes.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
-                        (note) => 
-                        <Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete} handleArchieve={handleArchieve}
-                        handlePin = {handlePin} />
+                shownotes ? 
+                    (
+                        notes.length !== 0 ? (   
+                            notes.filter((note) => note.title.includes(search))   
+                                .map(
+                                    (note) => <div key={note.id}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
+                                    handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state}/> 
+                                    </div>)
+                        ) : (
+                            <div className='no_deleted'>
+                                <h1>No Notes Here !!!</h1>
+                                <br/>
+                                <DeleteOutlineOutlinedIcon className='icons'/>
+                            </div>
                         )
-                    // notes.map((note) => <Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete} handleArchieve={handleArchieve}/>)
-                ) : null
+                    ) : null
             }
             {
                 showdeleted ? 
