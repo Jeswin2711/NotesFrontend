@@ -3,10 +3,18 @@ import axios from 'axios';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const ArchievedNote = ({id ,title ,description , user_id}) => {
+const ArchievedNote = ({id ,title ,description , user_id , username}) => {
 
 
     const [open, setopen] = useState(false)
+
+    const headers = {
+        headers : {
+            Authorization :`Bearer ${localStorage.getItem(username)}`,
+            "Access-Control-Max-Age":1728000
+            
+        }
+    } 
 
 
 
@@ -17,19 +25,17 @@ const ArchievedNote = ({id ,title ,description , user_id}) => {
     
             await axios.post(
                 ARCHIEVE_URL, {} ,
-                {
-                    headers:
-                    {
-                        'Content-Type': 'application/json'
-                    }
-                }
+                headers
             ).then((res) => console.log(res));
+
+            window.location.reload(true)
         }
 
 
     const handleDelete = () =>
     {
-        axios.delete(`http://localhost:8080/user/${user_id}/delete/${id}`).then((res) => console.log(res))
+        axios.delete(`http://localhost:8080/user/${user_id}/delete/${id}`,headers).then((res) => console.log(res))
+        window.location.reload(true)
     }
 
 

@@ -32,13 +32,16 @@ const ResetPassword = (props) => {
     {
         const requestBody = {passWord : newPassword}
 
-        axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem(props.location.state) 
+        const headers = {
+            headers : {
+                Authorization :`Bearer ${localStorage.getItem(props.location.state)}`,
+                "Access-Control-Max-Age":1728000
+                
+            }
+        } 
 
         try {
-            const req = await axios.put(
-                URL , requestBody
-            )
-            req.then((res) => console.log(res))
+            await axios.post(URL , requestBody , headers)
             setsuccess(true) 
         } catch (error) {
             console.log(error)

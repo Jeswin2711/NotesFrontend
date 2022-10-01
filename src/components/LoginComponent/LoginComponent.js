@@ -15,7 +15,6 @@ const LoginComponent = () => {
     const [success, setsuccess] = useState(false)
     const [errMsg, seterrMsg] = useState(false)
 
-
     useEffect(() => {
         seterrMsg('')
     }, [userName, passWord])

@@ -4,7 +4,16 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import axios from 'axios';
 
 
-const DeletedNote = ({id ,title ,description , user_id}) => {
+const DeletedNote = ({id ,title ,description , user_id , username}) => {
+
+    
+    const headers = {
+        headers : {
+            Authorization :`Bearer ${localStorage.getItem(username)}`,
+            "Access-Control-Max-Age":1728000
+            
+        }
+    } 
 
 
     const handleRestore = async () =>
@@ -12,19 +21,17 @@ const DeletedNote = ({id ,title ,description , user_id}) => {
         await axios.post(
             `http://localhost:8080/user/${user_id}/restore/${id}` , 
             {} , 
-            {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            
+            headers
         ).then((res) => console.log(res))
+
+        window.location.reload(true)
     }
 
 
     const handleDelete = async () =>
     {
-        await axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`).then((res) => console.log(res))
+        await axios.delete(`http://localhost:8080/user/${user_id}/remove/${id}`,headers).then((res) => console.log(res))
+        window.location.reload(true)
         
     }
 

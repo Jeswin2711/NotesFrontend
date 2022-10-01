@@ -21,7 +21,7 @@ const HomeComponent = (props) => {
 
     const [showbar, setshowbar] = useState(false)
 
-    const [logoarea, setlogoarea] = useState(true)
+    const [logoarea, setlogoarea] = useState(null)
 
     const [id, setid] = useState()
 
@@ -39,7 +39,7 @@ const HomeComponent = (props) => {
 
     const [shownotes, setshownotes] = useState(true)
 
-    const [visible, setvisible] = useState([])
+    const [visible, setvisible] = useState(false)
 
     const [title, settitle] = useState('')
 
@@ -51,29 +51,40 @@ const HomeComponent = (props) => {
     const GET_USET_ID_URL = `http://localhost:8080/user/${props.location.state}`
 
 
+    const headers = {
+        headers : {
+            Authorization :`Bearer ${localStorage.getItem(props.location.state)}`,
+            "Access-Control-Max-Age":1728000
+            
+        }
+    } 
+
+
     useEffect(() => {
 
         axios.get(
-            GET_USET_ID_URL
+            GET_USET_ID_URL ,
+            headers
         )
         .then((res) => {
             setid(res.data)
             axios.get(
-                `http://localhost:8080/user/${id}/getnotes`
+                `http://localhost:8080/user/${id}/getnotes`,
+                headers
             )
             .then((res) => {
                 let data = res.data['data'];
                 setnotes(data);
             })}
         )
-        axios.get(`http://localhost:8080/user/${id}/getpinned`).then((res) => {
+        axios.get(`http://localhost:8080/user/${id}/getpinned`, headers ).then((res) => {
             setpinned(res.data.data);
         })
 
-        axios.get(`http://localhost:8080/user/${id}/getarchieved`)
+        axios.get(`http://localhost:8080/user/${id}/getarchieved` , headers)
         .then((res) => setarchieved(res['data'].data));
 
-        axios.get(`http://localhost:8080/user/${id}/getdeleted`)
+        axios.get(`http://localhost:8080/user/${id}/getdeleted` , headers)
         .then((res) => settrash(res['data'].data))
 
     },[id])
@@ -85,11 +96,7 @@ const HomeComponent = (props) => {
 
             await axios.post(
                 `http://localhost:8080/user/addnote/${id}`, notes,
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
+                headers
             );
         window.location.reload(true)
     }
@@ -99,7 +106,7 @@ const HomeComponent = (props) => {
 
         const DELETE_URL = await "http://localhost:8080/user"+`/${id}/delete/${note_id}`;
 
-        axios.delete(DELETE_URL).then((res) => console.log("Deleted Successfully" + res))
+        axios.delete(DELETE_URL , headers).then((res) => console.log("Deleted Successfully" + res))
 
         window.location.reload(true)
 
@@ -113,12 +120,7 @@ const HomeComponent = (props) => {
 
         await axios.post(
             ARCHIEVE_URL, {} ,
-            {
-                headers:
-                {
-                    'Content-Type': 'application/json'
-                }
-            }
+            headers
         ).then((res) => console.log(res));
         
         window.location.reload(true)
@@ -129,7 +131,8 @@ const HomeComponent = (props) => {
     {
 
         await axios.post(
-            `http://localhost:8080/user/pin/${id}`
+            `http://localhost:8080/user/pin/${id}`,
+            headers
         )
 
         window.location.reload(true)
@@ -165,7 +168,7 @@ const HomeComponent = (props) => {
         <div className='home'>
             <p onClick={() => {setshowbar(!showbar)}} ><DensityMediumIcon/></p>
             {
-                logoarea === true ?  (
+                logoarea === null ?  (
                     <div className='logo'>
                         <img src="https://play-lh.googleusercontent.com/9bJoeaPbGTB8Tz_h4N-p-6ReRd8vSS-frZb2tmJulaGIoTKElKj3zpmcFJvnS96ANZP5=w600-h300-pc0xffffff-pd" width="130px" height="60px"/>
                         <h4>Keep</h4>
@@ -190,6 +193,7 @@ const HomeComponent = (props) => {
                             (
                                 <div onClick={() => {setshowbar(true)}}>
                                     <li onClick={() => {
+                                            setlogoarea(null);
                                             setshownotes(true);
                                             setshowdeleted(false);
                                             setshowarchieved(false)
@@ -203,7 +207,7 @@ const HomeComponent = (props) => {
                                         setlogoarea('Archieve');
                                         setshownotes(false);
                                         setshowdeleted(false);
-                                        setshowarchieved(true)
+                                        setshowarchieved(true);
                                         }} className='bar-icon'>
                                             <ArchiveOutlinedIcon/> 
                                             <p className='option'>Archieve</p>
@@ -240,7 +244,7 @@ const HomeComponent = (props) => {
                             <div>
                             <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
                             <textarea type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
-                            <button disabled={!title || !description ? true : false } onClick={AddNote}>close</button>
+                                <button disabled={!title || !description ? true : false } onClick={AddNote}>close</button>
                             </div>
                         }
                     </div>
@@ -286,7 +290,7 @@ const HomeComponent = (props) => {
                             {
                                 trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
                                     (note) => 
-                                    <DeletedNote id={note.id} title={note.title} description={note.description} user_id={id}/>
+                                    <DeletedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state}/>
                                     )
                             }
                         </div>
@@ -307,7 +311,7 @@ const HomeComponent = (props) => {
                                 {
                                     archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
                                         (note) => 
-                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id}/>
+                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state}/>
                                         )
                                 }
                             </div>
