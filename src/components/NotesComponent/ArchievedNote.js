@@ -54,7 +54,6 @@ const ArchievedNote = ({id ,title ,description , user_id , username}) => {
                                         {title}
                                         <br/>
                                         {description}
-                                        {user_id}
                                         <div className='option'>
                                             <p onClick={() => {handleUnArchieve()}}><UnarchiveIcon/></p>
                                             <div className='option'>

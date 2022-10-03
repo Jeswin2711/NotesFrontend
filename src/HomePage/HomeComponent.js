@@ -279,20 +279,13 @@ const HomeComponent = (props) => {
             {
                 shownotes ? 
                     (
-                        notes.length !== 0 ? (   
-                            notes.filter((note) => note.title.includes(search))   
+                            notes.filter((note) => note.title.includes(search) || note.description.includes(search))   
                                 .map(
                                     (note) => <div key={note.id}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
                                     handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state}/> 
                                     </div>)
-                        ) : (
-                            <div className='no_deleted'>
-                                <h1>No Notes Here !!!</h1>
-                                <br/>
-                                <DeleteOutlineOutlinedIcon className='icons'/>
-                            </div>
-                        )
-                    ) : null
+                        ) 
+                    : null
             }
             {
                 showdeleted ? 

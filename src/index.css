@@ -54,7 +54,6 @@ code {
 
 .notes
 {
-  background-color: white;
   border-radius: 8px;
   padding: 1rem;
   display: flex;
@@ -84,7 +83,7 @@ code {
   flex-direction: row;
   align-self: flex-end;
   position: relative;
-  display: flex;
+  display: flex
 }
 
 .dropdown
@@ -422,4 +421,46 @@ ul.side-bar
   font-size: x-small;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.colordropdown
+{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  margin-top: 42px;
+  cursor: pointer;
+  margin-left: -500%;
+}
+
+.imgdropdown
+{
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  margin-top: 80px;
+  cursor: pointer;
+  margin-left: -500%;
+}
+
+.colordropdown p:hover
+{
+  border-color: #000;
+  border-style: groove;
+}
+
+.imgdropdown p:hover
+{
+  border-color: #000;
+  border-style: groove;
+}
+
+.img-circle
+{
+  margin-left: 10px;
+}
+
+.color-circle{
+  margin-left: 10px;
+  /* background-color: aquamarine */
 }
