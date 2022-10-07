@@ -61,9 +61,6 @@ code {
   white-space: pre-wrap;
   word-wrap: break-word;
   border-style: groove;
-  justify-content: space-between;
-  margin-right: auto;
-  margin-left: auto;
 }
 
 
@@ -80,12 +77,9 @@ code {
 
 .option
 {
-  justify-content: end;
-  flex-direction: row;
-  align-self: flex-end;
-  position: relative;
-  display: flex;
   cursor: pointer;
+  display: flex;
+  align-self :flex-end
 }
 
 .dropdown
@@ -276,6 +270,7 @@ ul.side-bar
   font-size: large;
   border-style: groove;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .update-note input
@@ -434,22 +429,22 @@ ul.side-bar
 
 .colordropdown
 {
-  display: flex;
   flex-direction: row;
   position: absolute;
-  margin-top: 42px;
+  display: flex;
+  margin-top: 44px;
+  margin-left: -15%;
   cursor: pointer;
-  margin-left: -300%;
 }
 
 .imgdropdown
 {
-  display: flex;
   flex-direction: row;
   position: absolute;
-  margin-top: 80px;
+  display: flex;
+  margin-top: 70px;
+  margin-left: -15%;
   cursor: pointer;
-  margin-left: -300%;
 }
 
 .colordropdown p:hover

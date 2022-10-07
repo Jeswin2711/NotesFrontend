@@ -73,67 +73,67 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
     function ColorDropDown()
     {
         return  <div>
-                <div className='colordropdown'>
-                    <p style={{
-                            width: 20,
-                            height: 20,
-                            borderRadius: '50%',
-                            backgroundColor: 'antiquewhite'}} 
-                        className="color-circle" 
-                        onClick={() => setcolorshow(true) & setColor(id , 'antiquewhite') & setbgcolor('antiquewhite')}
-                        >
-                    </p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'red'}} 
-                    className="color-circle" onClick={() =>  setcolorshow(true) & setColor(id , 'red') & setbgcolor('red')}></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'yellow'}} 
-                    className="color-circle" onClick={() =>  setcolorshow(true) & setColor(id , 'yellow') & setbgcolor('yellow')}></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'lightcoral'}} 
-                    className="color-circle" onClick={() => setColor(id , 'lightcoral') & setcolorshow(true) & setbgcolor('lightcoral')}></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'lightblue'}} 
-                    className="color-circle" onClick={() => setColor(id , 'lightblue') & setcolorshow(true) & setbgcolor('lightblue')}></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'lightgreen'}} 
-                    className="color-circle" onClick={() => setColor(id , 'lightgreen') & setcolorshow(true) & setbgcolor('lightgreen')}>
-                    </p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'purple'}} 
-                    className="color-circle" onClick={() => setColor(id , 'purple') & setcolorshow(true) & setbgcolor('purple')}></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    backgroundColor: 'aquamarine'}} 
-                    className="color-circle" onClick={() => setColor(id , 'aquamarine') & setcolorshow(true) & setbgcolor('aquamarine')} ></p>
-                    <p style={{
-                    width: 20,
-                    height: 20,
-                    borderRadius: '50%',
-                    textAlign : 'center'
-                }}
-                    className = {"color-circle"} onClick={() => setbgcolor('white') & setColor(id , 'white') & setcolorshow(false)}>x</p>
-                </div>
+                    <div className='colordropdown'>
+                        <p style={{
+                                width: 20,
+                                height: 20,
+                                borderRadius: '50%',
+                                backgroundColor: 'antiquewhite'}} 
+                            className="color-circle" 
+                            onClick={() => setcolorshow(true) & setColor(id , 'antiquewhite') & setbgcolor('antiquewhite')}
+                            >
+                        </p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'red'}} 
+                        className="color-circle" onClick={() =>  setcolorshow(true) & setColor(id , 'red') & setbgcolor('red')}></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'yellow'}} 
+                        className="color-circle" onClick={() =>  setcolorshow(true) & setColor(id , 'yellow') & setbgcolor('yellow')}></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'lightcoral'}} 
+                        className="color-circle" onClick={() => setColor(id , 'lightcoral') & setcolorshow(true) & setbgcolor('lightcoral')}></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'lightblue'}} 
+                        className="color-circle" onClick={() => setColor(id , 'lightblue') & setcolorshow(true) & setbgcolor('lightblue')}></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'lightgreen'}} 
+                        className="color-circle" onClick={() => setColor(id , 'lightgreen') & setcolorshow(true) & setbgcolor('lightgreen')}>
+                        </p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'purple'}} 
+                        className="color-circle" onClick={() => setColor(id , 'purple') & setcolorshow(true) & setbgcolor('purple')}></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        backgroundColor: 'aquamarine'}} 
+                        className="color-circle" onClick={() => setColor(id , 'aquamarine') & setcolorshow(true) & setbgcolor('aquamarine')} ></p>
+                        <p style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: '50%',
+                        textAlign : 'center'
+                    }}
+                        className = {"color-circle"} onClick={() => setbgcolor('white') & setColor(id , 'white') & setcolorshow(false)}>x</p>
+                    </div>
                 <div className='imgdropdown'>
                     <p
                         className='img-circle'

@@ -4,7 +4,7 @@ import DeleteForever from '@mui/icons-material/DeleteForever';
 import axios from 'axios';
 
 
-const DeletedNote = ({id ,title ,description , user_id , username}) => {
+const DeletedNote = ({id ,title ,description , user_id , username , bg_color}) => {
 
     
     const headers = {
@@ -36,7 +36,9 @@ const DeletedNote = ({id ,title ,description , user_id , username}) => {
 
 
   return (
-    <div className='notes' key={id}>
+    <div className='notes' key={id} style={{
+        'backgroundColor' : bg_color
+    }}>
                                     {title}
                                     <br/>
                                     {description}

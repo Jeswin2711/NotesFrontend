@@ -58,7 +58,6 @@ const ForgotPassword = () => {
                 `http://localhost:8080/user/forgot-password/${email}`,
                 resetPasswordDto
             )
-            .then((res) => console.log("kjsdhsgkblasgdasfhjdshnodfsohpsd o"+res))
             setsuccess(true)
         } catch (error) {
             alert(error.res.data.msg)

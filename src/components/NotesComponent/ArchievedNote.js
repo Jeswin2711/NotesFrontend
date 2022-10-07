@@ -3,7 +3,7 @@ import axios from 'axios';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const ArchievedNote = ({id ,title ,description , user_id , username }) => {
+const ArchievedNote = ({id ,title ,description , user_id , username , bg_color}) => {
 
 
     const [open, setopen] = useState(false)
@@ -51,23 +51,21 @@ const ArchievedNote = ({id ,title ,description , user_id , username }) => {
     }
 
   return (
-    <div>
-        <div className='notes' key={id}>
+        <div className='notes' key={id} style={{
+            'backgroundColor' : bg_color
+        }}>
                                         {title}
                                         <br/>
                                         {description}
                                         <div className='option'>
                                             <p onClick={() => {handleUnArchieve()}}><UnarchiveIcon/></p>
-                                            <div className='option'>
                                             <MoreVertIcon onClick={() => {setopen(!open)}}/>
                                             {
                                                 open ? <DropDownItem id={id}/>
                                                 : null
                                             }
                                         </div>
-                                        </div>
         </div>
-     </div>
   )
 }
 

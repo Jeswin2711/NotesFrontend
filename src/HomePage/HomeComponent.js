@@ -334,11 +334,14 @@ const HomeComponent = (props) => {
                 showdeleted ? 
                 (
                     trash.length !== 0 ? (
-                        <div>
+                        <div style={{
+                            'display' : 'flex'
+                        }}>
                             {
                                 trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
                                     (note) => 
-                                    <DeletedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state}/>
+                                    <DeletedNote id={note.id} title={note.title} description={note.description} 
+                                    user_id={id} username={props.location.state} bg_color={note.color}/>
                                     )
                             }
                         </div>
@@ -355,11 +358,16 @@ const HomeComponent = (props) => {
                 showarchieved ? (
                     archieved.length !== 0 ? 
                     (
-                            <div>
+                            <div style={{
+                                'display' : 'flex'
+                            }}>
                                 {
                                     archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
                                         (note) => 
-                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state} handleDelete={handleDelete}/>
+                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} 
+                                        username={props.location.state} 
+                                        handleDelete={handleDelete}
+                                        bg_color={note.color}/>
                                         )
                                 }
                             </div>
