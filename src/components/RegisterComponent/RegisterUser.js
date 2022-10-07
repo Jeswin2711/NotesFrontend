@@ -35,6 +35,7 @@ const RegisterUser = () => {
     const [show, setshow] = useState(false)
 
 
+
     useEffect(() => {
         seterrMsg("")
     }, [userName, passWord])
@@ -87,7 +88,8 @@ const RegisterUser = () => {
                                     onChange={(e) => {
                                         setusername(e.target.value)
                                     }}
-                                    id="outlined-required" label="Username" autoComplete="off"/><br />
+                                    id="outlined-required" label="Username" autoComplete="off"
+                                    /><br />
                                 {
                                     show ?
                                     PASSWORD_REGEX.test(passWord) ? null : 

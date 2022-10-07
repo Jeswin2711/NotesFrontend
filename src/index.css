@@ -73,7 +73,8 @@ code {
   grid-template-columns: repeat(auto-fill,
       minmax(250px, 1fr));
   word-break: break-all;
-  margin-top: 140px;
+  position: static;
+  margin-top: 170px;
   margin-left: 280px;
 }
 
@@ -83,20 +84,21 @@ code {
   flex-direction: row;
   align-self: flex-end;
   position: relative;
-  display: flex
+  display: flex;
+  cursor: pointer;
 }
 
 .dropdown
 {
   background-color:transparent;
-  height: 90px;
-  width: 80px;
-  display: block;
+  display: flex;
   margin-top: 40px;
-  border-style: groove;
-  position:fixed;
+  position:absolute;
   font-family: sans-serif;
   cursor: pointer;
+  border-style: ridge;
+  width: 80px;
+  height: 30px;
 }
 
 p.hover
@@ -124,6 +126,11 @@ p.hover
   background-color: transparent;
 }
 
+.addnote textarea:focus {
+  outline: none;
+  background-color: transparent;
+}
+
 .addnote input
 {
   width: 500px;
@@ -132,7 +139,6 @@ p.hover
   background-color:rgb(231, 228, 228);
   height: 40px;
   border-radius: 5px;
-  shape-outside: -moz-linear-gradient();
 }
 
 .addnote textarea
@@ -141,14 +147,16 @@ p.hover
   margin-left: 325px;
   border: none;
   background-color:rgb(231, 228, 228);
-  height: 40px;
   border-radius: 5px;
-  shape-outside: -moz-linear-gradient();
+  position: static;
+  resize: none;
+  overflow: hidden;
+  max-height: max-content;
 }
 
 .addnote button
 {
-  background-color: transparent; /* Green */
+  background-color: transparent;
   border: none;
   color: black;
   padding: 15px 32px;
@@ -391,6 +399,7 @@ ul.side-bar
   margin-left: 40%;
   margin-right: 40%;
   display: flex;
+  cursor: pointer;
 }
 
 .reset button
@@ -430,7 +439,7 @@ ul.side-bar
   position: absolute;
   margin-top: 42px;
   cursor: pointer;
-  margin-left: -500%;
+  margin-left: -300%;
 }
 
 .imgdropdown
@@ -440,7 +449,7 @@ ul.side-bar
   position: absolute;
   margin-top: 80px;
   cursor: pointer;
-  margin-left: -500%;
+  margin-left: -300%;
 }
 
 .colordropdown p:hover
@@ -464,3 +473,10 @@ ul.side-bar
   margin-left: 10px;
   /* background-color: aquamarine */
 }
+
+.reset_password_condition
+{
+  text-align: center;
+  color: red;
+}
+

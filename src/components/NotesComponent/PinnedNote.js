@@ -26,7 +26,7 @@ const PinnedNote = ({id , title , description , handleDelete , username}) => {
     }
 
 
-    function DropDownItem({id})
+    function DropDownItem(id)
     {
         return <div className='dropdown'>
             <p onClick={() => {

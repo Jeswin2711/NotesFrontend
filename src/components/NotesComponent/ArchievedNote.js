@@ -3,7 +3,7 @@ import axios from 'axios';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const ArchievedNote = ({id ,title ,description , user_id , username}) => {
+const ArchievedNote = ({id ,title ,description , user_id , username }) => {
 
 
     const [open, setopen] = useState(false)
@@ -32,6 +32,8 @@ const ArchievedNote = ({id ,title ,description , user_id , username}) => {
         }
 
 
+
+
     const handleDelete = () =>
     {
         axios.delete(`http://localhost:8080/user/${user_id}/delete/${id}`,headers).then((res) => console.log(res))
@@ -39,11 +41,11 @@ const ArchievedNote = ({id ,title ,description , user_id , username}) => {
     }
 
 
-    function DropDownItem({id})
+    function DropDownItem(id)
     {
         return <div className='dropdown'>
             <p onClick={() => {
-                handleDelete(id)
+                handleDelete()
             }}>Delete</p>
         </div>
     }

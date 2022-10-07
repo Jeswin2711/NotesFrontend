@@ -3,6 +3,10 @@ import React , {useState , useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 
 
+const RESET_PASSWORD_REGEX = new RegExp(
+    '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-])[A-Za-z0-9@$!%*?&]{8,}$'
+)
+
 const ResetPassword = (props) => {
 
     const [newPassword, setnewPassword] = useState('')
@@ -51,6 +55,7 @@ const ResetPassword = (props) => {
 
   return (
     <div>
+         <p className='reset_password_condition'>Your Password must contain atleast one UpperCase , one Special Character , one Digit , one SmallCase and Length between 8 to 12</p>
         {
             success ? <a href='/login' className='after-reset'>Login Again</a> : ( 
                 <div className='reset'>
@@ -63,7 +68,8 @@ const ResetPassword = (props) => {
                     />
                     <button onClick={() => {
                     setPassword()
-                    }}>Submit</button>
+                    }}
+                    disabled={RESET_PASSWORD_REGEX.test(newPassword) ? false : true}>ResetPassword</button>
                 </div>
             )
         }

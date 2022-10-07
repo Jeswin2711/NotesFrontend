@@ -14,6 +14,8 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import ArchievedNote from '../components/NotesComponent/ArchievedNote';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
 import PinnedNote from '../components/NotesComponent/PinnedNote';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+
 
 const HomeComponent = (props) => {
 
@@ -48,6 +50,17 @@ const HomeComponent = (props) => {
     const [description, setdescription] = useState('')
 
     const [open, setopen] = useState(false)
+
+    const [height, setheight] = useState()
+
+    const [bgcolor, setbgcolor] = useState()
+
+    const colorStyle = {
+        background : bgcolor
+        }
+
+    
+    
 
 
     const GET_USET_ID_URL = `http://localhost:8080/user/${props.location.state}`
@@ -161,6 +174,13 @@ const HomeComponent = (props) => {
         localStorage.removeItem(`${props.location.state}`)
     }
 
+    function onChangeHandler (e)
+    {
+        setheight(parseInt(e.target.style.height,10))
+        setdescription(e.target.value)
+    }
+
+
 
   return (
     <div>
@@ -245,7 +265,19 @@ const HomeComponent = (props) => {
                             :
                             <div>
                             <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
-                            <textarea type="text" placeholder='Take a note...' value={description} onChange={(e) => setdescription(e.target.value)}/><br></br>
+                            {/* <textarea type="text" 
+                            placeholder='Take a note...' 
+                            value={description} 
+                            onChange={(e) => setdescription(e.target.value)}
+                            /> */}
+                            <TextareaAutosize
+                                placeholder='Take a Note'
+                                value={description}
+                                onChange={
+                                    (e) => onChangeHandler(e)
+                                }
+                            />
+                            <br/>
                                 <button disabled={!title || !description ? true : false } onClick={AddNote}>close</button>
                             </div>
                         }
@@ -253,6 +285,7 @@ const HomeComponent = (props) => {
                 ) : null
             }
         </div> 
+        <div>
         {
         showpinned ? (
                     pinned.length !== 0 ? (
@@ -275,14 +308,24 @@ const HomeComponent = (props) => {
                 ): null
                 }
 
-        <div className='notes-list'>
+        
+
+        <div className='notes-list' style={height === NaN || height < 100 ? (
+            {
+                'marginTop' : '170px'
+            }
+        ) : (
+            {
+                'marginTop' : height + 120
+            }
+        )}>
             {
                 shownotes ? 
                     (
                             notes.filter((note) => note.title.includes(search) || note.description.includes(search))   
                                 .map(
-                                    (note) => <div key={note.id}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
-                                    handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state}/> 
+                                    (note) => <div key={note.id} style={colorStyle}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
+                                    handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state} headers={headers} user_id = {id}/> 
                                     </div>)
                         ) 
                     : null
@@ -316,7 +359,7 @@ const HomeComponent = (props) => {
                                 {
                                     archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
                                         (note) => 
-                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state}/>
+                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} username={props.location.state} handleDelete={handleDelete}/>
                                         )
                                 }
                             </div>
@@ -330,6 +373,7 @@ const HomeComponent = (props) => {
                     )
                 ) : null
             }
+            </div>
         </div>
     </div>
   )

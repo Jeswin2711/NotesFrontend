@@ -1,15 +1,17 @@
 import { TextField } from '@mui/material'
 import React , {useState} from 'react'
 import SendIcon from '@mui/icons-material/Send';
-// import axios from '../api/apis';
 import DoneIcon from '@mui/icons-material/Done';
 import axios from 'axios';
+
+const RESET_PASSWORD_REGEX = new RegExp(
+    '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-])[A-Za-z0-9@$!%*?&]{8,}$'
+)
 
 const ForgotPassword = () => {
 
 
     const [email, setemail] = useState('')
-
 
     const [otp, setotp] = useState('')
 
@@ -74,6 +76,17 @@ const ForgotPassword = () => {
             :
             show ? (
                 <div>
+                    <p
+                        style={
+                            {
+                                'color' : 'red',
+                                'fontFamily':"cursive",
+                                'fontSize' : "12px",
+                                'textAlign' : 'center'
+                            }
+                        }
+                    >
+                        Password Must Contain atlease 1 UpperCase , LowerCase , Special Character and Length b/w 8 to 12</p>
                     <TextField required
                         value={newpassword}
                         onChange={(e) => setnewpassword(e.target.value)}
@@ -92,7 +105,12 @@ const ForgotPassword = () => {
                     />
                     <br/>
                     <br/>
-                    <button onClick={() => ForgotPassword()}>Submit</button>
+                    <button 
+                        onClick={() => ForgotPassword()}
+                        disabled={ RESET_PASSWORD_REGEX.test(newpassword) && newpassword.match(confirmpassword)
+                            ? false : true }
+                        >
+                            Send otp</button>
                 </div>
             ) : (
                     otp ? (<div>
