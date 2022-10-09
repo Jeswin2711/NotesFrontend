@@ -34,7 +34,17 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
         axios.get(
             `http://localhost:8080/user/${user_id}/getnote/${id}`,
             headers
-        ).then((res) => setbgcolor(res.data['data'].color))
+        )
+        // .then((res) => {
+        //     if(res.data['data'].color.length < 15)
+        //     {
+        //         setbgcolor(res.data['data'].color)
+        //     }
+        //     else
+        //     {
+        //         setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/${res.data['data'].color})`)
+        //     }
+        // })
     } , [])
 
     function DropDownItem({id})
@@ -87,7 +97,7 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: 'red'}} 
+                        backgroundColor: 'orange'}} 
                         className="color-circle" onClick={() =>  setcolorshow(true) & setColor(id , 'red') & setbgcolor('red')}></p>
                         <p style={{
                         width: 20,
@@ -99,8 +109,8 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: 'lightcoral'}} 
-                        className="color-circle" onClick={() => setColor(id , 'lightcoral') & setcolorshow(true) & setbgcolor('lightcoral')}></p>
+                        backgroundColor: 'mediumaquamarine'}} 
+                        className="color-circle" onClick={() => setColor(id , 'mediumaquamarine') & setcolorshow(true) & setbgcolor('mediumaquamarine')}></p>
                         <p style={{
                         width: 20,
                         height: 20,
@@ -111,21 +121,21 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: 'lightgreen'}} 
-                        className="color-circle" onClick={() => setColor(id , 'lightgreen') & setcolorshow(true) & setbgcolor('lightgreen')}>
+                        backgroundColor: 'greenyellow'}} 
+                        className="color-circle" onClick={() => setColor(id , 'greenyellow') & setcolorshow(true) & setbgcolor('greenyellow')}>
                         </p>
                         <p style={{
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: 'purple'}} 
-                        className="color-circle" onClick={() => setColor(id , 'purple') & setcolorshow(true) & setbgcolor('purple')}></p>
+                        backgroundColor: 'lightgoldenrodyellow'}} 
+                        className="color-circle" onClick={() => setColor(id , 'lightgoldenrodyellow') & setcolorshow(true) & setbgcolor('lightgoldenrodyellow')}></p>
                         <p style={{
                         width: 20,
                         height: 20,
                         borderRadius: '50%',
-                        backgroundColor: 'aquamarine'}} 
-                        className="color-circle" onClick={() => setColor(id , 'aquamarine') & setcolorshow(true) & setbgcolor('aquamarine')} ></p>
+                        backgroundColor: 'lightpink'}} 
+                        className="color-circle" onClick={() => setColor(id , 'lightpink') & setcolorshow(true) & setbgcolor('lightpink')} ></p>
                         <p style={{
                         width: 20,
                         height: 20,
@@ -145,9 +155,7 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         }}
                         onClick={() => 
                         setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/grocery_light_thumb_0615.svg)`) 
-    
-                        &
-                        setimgshow(true)}>  </p>
+                        & setColor(id , "grocery_light_thumb_0615.svg")}>  </p>
                     <p
                         className='img-circle'
                         style={{
@@ -157,11 +165,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                             borderRadius:'50%'
                         }}
                         onClick={() => 
-                        setbgimg(`url(https://www.gstatic.com/keep/backgrounds/food_light_thumb_0615.svg)`) 
+                        setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/food_light_thumb_0615.svg)`) 
                         & 
-                        setbgcolor(false) 
-                        & 
-                        setimgshow(true)}>  </p>
+                        setColor(id , "food_light_thumb_0615.svg")}>  </p>
                     <p
                         className='img-circle'
                         style={{
@@ -171,11 +177,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                             borderRadius:'50%'
                         }}
                         onClick={() => 
-                        setbgimg(`url(https://www.gstatic.com/keep/backgrounds/music_light_thumb_0615.svg)`) 
+                            setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/music_light_thumb_0615.svg)`) 
                         & 
-                        setbgcolor(false) 
-                        & 
-                        setimgshow(true)}>  </p>
+                        setColor(id , "music_light_thumb_0615.svg")}>  </p>
                     <p
                         className='img-circle'
                         style={{
@@ -185,11 +189,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                             borderRadius:'50%'
                         }}
                         onClick={() => 
-                        setbgimg(`url(https://www.gstatic.com/keep/backgrounds/recipe_light_thumb_0615.svg)`) 
+                        setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/places_light_thumb_0615.svg)`) 
                         & 
-                        setbgcolor(false) 
-                        & 
-                        setimgshow(true)}>  </p>
+                        setColor(id , "places_light_thumb_0615.svg")}>  </p>
                     <p
                         className='img-circle'
                         style={{
@@ -199,11 +201,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                             borderRadius:'50%'
                         }}
                         onClick={() => 
-                        setbgimg(`url(https://www.gstatic.com/keep/backgrounds/celebration_light_thumb_0715.svg)`) 
+                            setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/celebration_light_thumb_0715.svg)`) 
                         & 
-                        setbgcolor(false) 
-                        & 
-                        setimgshow(true)}>  </p>
+                        setColor(id ,"celebration_light_thumb_0715.svg")}>  </p>
                     <p
                     className='img-circle'
                     style={{
@@ -213,11 +213,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         borderRadius:'50%'
                     }}
                     onClick={() => 
-                    setbgimg(`url(https://www.gstatic.com/keep/backgrounds/video_light_thumb_0615.svg)`) 
+                    setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/video_light_thumb_0615.svg)`) 
                     & 
-                    setbgcolor(false) 
-                    & 
-                    setimgshow(true)}>  </p>
+                    setColor(id , "video_light_thumb_0615.svg")}>  </p>
                     <p
                     className='img-circle'
                     style={{
@@ -227,11 +225,9 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                         borderRadius:'50%'
                     }}
                     onClick={() => 
-                    setbgimg(`url(https://www.gstatic.com/keep/backgrounds/places_light_thumb_0615.svg)`) 
+                    setbgcolor(`url(https://www.gstatic.com/keep/backgrounds/recipe_light_thumb_0615.svg)`) 
                     & 
-                    setbgcolor(false) 
-                    & 
-                    setimgshow(true)}>  </p>
+                    setColor(id ,"recipe_light_thumb_0615.svg")}>  </p>
                 </div>
         </div>
         

@@ -36,9 +36,25 @@ const DeletedNote = ({id ,title ,description , user_id , username , bg_color}) =
 
 
   return (
-    <div className='notes' key={id} style={{
-        'backgroundColor' : bg_color
-    }}>
+    <div className='notes' key={id} 
+    style={bg_color === null ? (
+        {
+            'backgroundColor' : 'white'
+        }) : (
+            bg_color.length < 15 ?
+                (
+                    {
+                        'backgroundColor' : bg_color
+                    }
+                ) : 
+                (
+                    {
+                        'backgroundImage' : `url(https://www.gstatic.com/keep/backgrounds/${bg_color})`
+                    }
+                )
+        )
+    }
+    >
                                     {title}
                                     <br/>
                                     {description}

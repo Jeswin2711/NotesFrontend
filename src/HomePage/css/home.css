@@ -102,9 +102,10 @@
 
 .other
 {
-    margin-top: 20px;
+    margin-top: 40px;
     font-family: sans-serif;
     margin-left: 20%;
+    margin-bottom: -110px;
 }
 
 .account-dropdown

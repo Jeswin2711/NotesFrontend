@@ -2,6 +2,7 @@ import React,{useState} from 'react'
 import axios from 'axios';
 import UnarchiveIcon from '@mui/icons-material/Unarchive';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Note from './Note';
 
 const ArchievedNote = ({id ,title ,description , user_id , username , bg_color}) => {
 
@@ -32,8 +33,6 @@ const ArchievedNote = ({id ,title ,description , user_id , username , bg_color})
         }
 
 
-
-
     const handleDelete = () =>
     {
         axios.delete(`http://localhost:8080/user/${user_id}/delete/${id}`,headers).then((res) => console.log(res))
@@ -51,9 +50,25 @@ const ArchievedNote = ({id ,title ,description , user_id , username , bg_color})
     }
 
   return (
-        <div className='notes' key={id} style={{
-            'backgroundColor' : bg_color
-        }}>
+        <div className='notes' key={id} 
+        style={bg_color === null ? (
+            {
+                'backgroundColor' : 'white'
+            }) : (
+                bg_color.length < 15 ?
+                    (
+                        {
+                            'backgroundColor' : bg_color
+                        }
+                    ) : 
+                    (
+                        {
+                            'backgroundImage' : `url(https://www.gstatic.com/keep/backgrounds/${bg_color})`
+                        }
+                    )
+            )
+        }
+        >
                                         {title}
                                         <br/>
                                         {description}

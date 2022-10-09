@@ -3,7 +3,7 @@ import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import axios from 'axios';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const PinnedNote = ({id , title , description , handleDelete , username}) => {
+const PinnedNote = ({id , title , description , username , bg_color  , user_id }) => {
 
     const [open, setopen] = useState(false)
 
@@ -26,17 +26,47 @@ const PinnedNote = ({id , title , description , handleDelete , username}) => {
     }
 
 
-    function DropDownItem(id)
+
+    function DropDownItem()
     {
         return <div className='dropdown'>
             <p onClick={() => {
-                handleDelete(id)
+                handleDelete()
             }}>Delete</p>
         </div>
     }
+    async function handleDelete()
+    {
+
+        const DELETE_URL = "http://localhost:8080/user"+`/${user_id}/delete/${id}`;
+
+        await axios.delete(DELETE_URL , headers).then((res) => console.log("Deleted Successfully" + res))
+
+        window.location.reload(true)
+    }
+
+
 
   return (
-    <div className='notes'>
+    <div className='notes'
+    style={bg_color === null ? (
+        {
+            'backgroundColor' : 'white'
+        }) : (
+            bg_color.length < 15 ?
+                (
+                    {
+                        'backgroundColor' : bg_color
+                    }
+                ) : 
+                (
+                    {
+                        'backgroundImage' : `url(https://www.gstatic.com/keep/backgrounds/${bg_color})`
+                    }
+                )
+        )
+    }
+    >
         <p className='unpin' onClick={() => {
             unPin(id)
         }}><PushPinRoundedIcon/></p>
@@ -50,10 +80,11 @@ const PinnedNote = ({id , title , description , handleDelete , username}) => {
                 description
             }
         </p>
+
         <div className='option'>
             <MoreVertIcon onClick={() => {setopen(!open)}}/>
             {
-                open ? <DropDownItem id={id}/>
+                open ? <DropDownItem />
                 : null
             }
         </div>

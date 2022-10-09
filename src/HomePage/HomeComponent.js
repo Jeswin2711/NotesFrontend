@@ -21,7 +21,7 @@ const HomeComponent = (props) => {
 
     const [search, setsearch] = useState('')
 
-    const [showbar, setshowbar] = useState(false)
+    const [showbar, setshowbar] = useState(true)
 
     const [logoarea, setlogoarea] = useState(null)
 
@@ -43,7 +43,7 @@ const HomeComponent = (props) => {
 
     const [visible, setvisible] = useState(false)
 
-    const [showpinned, setshowpinned] = useState(false)
+    const [showpinned, setshowpinned] = useState(true)
 
     const [title, settitle] = useState('')
 
@@ -51,15 +51,16 @@ const HomeComponent = (props) => {
 
     const [open, setopen] = useState(false)
 
-    const [height, setheight] = useState()
+    const [height, setheight] = useState(0)
 
     const [bgcolor, setbgcolor] = useState()
+
 
     const colorStyle = {
         background : bgcolor
         }
 
-    
+    let others = false
     
 
 
@@ -265,11 +266,6 @@ const HomeComponent = (props) => {
                             :
                             <div>
                             <input type="text" placeholder='Title' value={title} onChange={(e) => settitle(e.target.value)}/><br></br>
-                            {/* <textarea type="text" 
-                            placeholder='Take a note...' 
-                            value={description} 
-                            onChange={(e) => setdescription(e.target.value)}
-                            /> */}
                             <TextareaAutosize
                                 placeholder='Take a Note'
                                 value={description}
@@ -287,102 +283,150 @@ const HomeComponent = (props) => {
         </div> 
         <div>
         {
-        showpinned ? (
-                    pinned.length !== 0 ? (
-                        <div>
-                            <div className='pinned-notes'>
-                                <h6>
-                                    Pinned
-                                </h6>
-                                <br/>
-                                {
-                                    pinned.map((note) => 
-                                    <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={handleDelete} username={props.location.state}/>
-                                    )
-                                }
-                                <br/>
-                            </div>
-                            <h6 className='other'>Others</h6>
-                        </div>
-                    ) : null
-                ): null
-                }
-
-        
-
-        <div className='notes-list' style={height === NaN || height < 100 ? (
-            {
-                'marginTop' : '170px'
-            }
-        ) : (
-            {
-                'marginTop' : height + 120
-            }
-        )}>
-            {
-                shownotes ? 
-                    (
-                            notes.filter((note) => note.title.includes(search) || note.description.includes(search))   
-                                .map(
-                                    (note) => <div key={note.id} style={colorStyle}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
-                                    handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state} headers={headers} user_id = {id}/> 
-                                    </div>)
-                        ) 
-                    : null
-            }
-            {
-                showdeleted ? 
+            showpinned ? 
+            (
+                pinned.length !== 0 ? 
                 (
-                    trash.length !== 0 ? (
-                        <div style={{
-                            'display' : 'flex'
-                        }}>
+                    <div className='notes-list' 
+                    style={height === NaN || height < 20 || height === undefined? 
+                        (
                             {
-                                trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
-                                    (note) => 
-                                    <DeletedNote id={note.id} title={note.title} description={note.description} 
-                                    user_id={id} username={props.location.state} bg_color={note.color}/>
-                                    )
+                                'marginTop' : 150
                             }
-                        </div>
-                    ) : (
-                        <div className='no_deleted'>
-                            <h1>No Deleted Notes Here !!!</h1>
-                            <br/>
-                            <DeleteOutlineOutlinedIcon className='icons'/>
-                        </div>
-                    )
-                ) : null
-            }
-            {
-                showarchieved ? (
-                    archieved.length !== 0 ? 
-                    (
-                            <div style={{
-                                'display' : 'flex'
-                            }}>
-                                {
-                                    archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
-                                        (note) => 
-                                        <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} 
-                                        username={props.location.state} 
-                                        handleDelete={handleDelete}
-                                        bg_color={note.color}/>
-                                        )
-                                }
+                        ) : (
+                            {
+                                'marginTop' : height + 140
+                            }
+                        )}>
+                        <h6 style={{
+                            'position' : 'absolute',
+                            'marginTop' : -30,
+                            'fontFamily':'sans-serif',
+                            'fontWeight':'normal'
+                        }}>PINNED</h6>                
+                        {
+                            pinned.map((note) => 
+                            <div key={note.id}>
+                                <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={handleDelete} 
+                                username={props.location.state} 
+                                bg_color = {note.color}
+                                user_id = {id}
+                                />
                             </div>
-                    ) :
-                    (
-                            <div className='no_archieved'>
-                                <h1>No Archived Notes Here !!!</h1>
-                                <br/>
-                                <ArchiveTwoToneIcon className="icons"/>
-                        </div>
-                    )
+                            )
+                        }
+                        <br/>
+                        {
+                            others = true
+                        }  
+                    </div>
                 ) : null
-            }
-            </div>
+            ) : null
+        }
+        {
+            others ? <h6 style={
+                {
+                    'position' : 'relative',
+                    'marginLeft' : 280,
+                    'fontFamily':'sans-serif',
+                    'fontWeight':'normal'
+
+                }
+            }>OTHERS</h6> : null
+        }
+        {
+            shownotes ? 
+            (
+                <div className='notes-list' style={
+                    showpinned || height === undefined || height < 20? ({
+                        'marginTop' : 50 + height
+                    }) : (
+                        height === undefined ? ({
+                            'marginTop' : '170px'
+                        }) : (
+                            height === NaN || height < 20 ? (
+                                {
+                                    'marginTop' : '170px'
+                                }
+                            ) : 
+                            (
+                                {
+                                    'marginTop' : height + 120
+                                }
+                            )
+                        )
+                    )
+                    }>
+                        {
+                        notes.filter((note) => note.title.includes(search) || note.description.includes(search))   
+                            .map((note) => <div  key={note.id} style={colorStyle}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
+                                handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state} headers={headers} user_id = {id}/> 
+                                </div>)
+                            }
+                </div>
+                ) 
+            : null
+        }
+        <div>
+        {
+            showdeleted ? 
+            (
+                trash.length !== 0 ? (
+                    <div className='notes-list' style={{
+                        'marginTop' : '70px'
+                    }}>
+                        {
+                            trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
+                                (note) =>  
+                                <DeletedNote id={note.id} title={note.title} description={note.description} 
+                                user_id={id} username={props.location.state} bg_color={note.color}/>
+                                )
+                        }
+                    </div>
+                ) : (
+                    <div style={{
+                        'textAlign' : 'center'
+                    }}>
+                        <h1>No Deleted Notes Here !!!</h1>
+                        <br/>
+                        <DeleteOutlineOutlinedIcon/>
+                    </div>
+                )
+            ) : null
+        }
         </div>
+        <div>
+        {
+            showarchieved ? (
+                archieved.length !== 0 ? 
+                (
+                    <div className='notes-list' style={{
+                        'marginTop' : '-70px'
+                    }}>
+                        {
+                            archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
+                                (note) => 
+                                <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} 
+                                username={props.location.state} 
+                                handleDelete={handleDelete}
+                                bg_color={note.color}/>
+                                )
+                        }
+                    </div>
+                ) :
+                (
+                    <div style={{
+                        'textAlign' : 'center'
+                    }}>
+                        <h1>No Archived Notes Here !!!</h1>
+                        <br/>
+                        <ArchiveTwoToneIcon/>
+                    </div>
+                )
+            ) : null
+        }
+        </div>
+    </div>
     </div>
   )
 }
