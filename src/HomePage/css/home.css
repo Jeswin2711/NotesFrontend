@@ -1,10 +1,9 @@
 .home
 {
     display: flex;
-    margin-top: 3px;
-    position: relative;
+    margin-top: -3px;
     border-style: groove;
-    padding: 5px;
+    position: relative;
 }
 
 .home h4
@@ -25,56 +24,89 @@
 
 .account
 {
-    margin-left: 30%;
-    margin-top: 15px;
+    transform: scale(0.8);
+}
+
+
+.account a:hover
+{
+    background-color: ghostwhite;
 }
 
 .svg_icons {
     transform: scale(0.8);
   }
 
-
-.side-bar
-{
-    position: absolute;
-    margin-top: 50px;
-    font-family: sans-serif;
-    font-size: 20px;
-    font-weight: lighter;
-    margin-left: -20px;
-}
-
-.side-bar li
-{
-    list-style-type: none;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
-.side-bar li:hover
-{
-    background-color: lightcyan;
-}
-
 .logo
 {
     display: flex;
 }
 
-.logo-area
-{
-    font-size: larger;
-    font-family: sans-serif;
-    font-weight: lighter;
-    display: flex;
-    margin-left: 20px;
+.logo img{
+    padding-top: -20px;
+    padding-left: -20px;
 }
 
-.bar-icon
+.logo h4
 {
-    transform: scale(1.2);
-    display: flex;
-    align-items: center;
+    padding-top: 3px;
+    padding-left: 7px;
+    font-family: sans-serif;
+    font-weight: 400;
+}
+
+.logo p {
+    font-family: sans-serif;
+    font-weight: 400;
+    margin-left: 40px;
+    padding-top: 7px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: larger;
+}
+
+
+.side-bar
+{
+    position: absolute;
+    margin-left: -60px;
+    margin-top: 50px;
+    padding-left: -20px;
+    padding-right: 20px;
+    cursor: pointer;
+    height: 1500%;
+    padding-top: -45;
+
+    /* font-style : normal */
+}
+
+.side-bar p {
+    /* display: flex; */
+    margin-top: 2px;
+    margin-left: 25px;
+    font-weight: 12px;
+    font-size: .875rem;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.tab_show
+{
+  display: flex;
+  margin-left: 7px;
+  border-radius: 20px;
+}
+
+
+.side-bar li
+{
+    list-style-type: none;
+    transform: scale(1.0);
+    margin-top: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 15px;
+    margin-left: -20px;
+    height: 40px;
 }
 
 
@@ -106,6 +138,7 @@
     font-family: sans-serif;
     margin-left: 20%;
     margin-bottom: -110px;
+    /* border-color: rgb(240, 196, 114); */
 }
 
 .account-dropdown
@@ -129,3 +162,26 @@
     background-color: transparent;
 }
 
+
+
+.densityicon
+{
+    transform: scale(0.8);
+    cursor: pointer;
+    align-items: center;
+    margin-left: 15px;
+    padding-top: 10px;
+}
+ 
+
+.top-icons{
+    display: flex;
+    position: absolute;
+    margin-left: 75%;
+    transform: scale(1.2);
+}
+
+.top-icons p {
+    margin-left:25%;
+    margin-top: 18px;
+}

@@ -2,8 +2,12 @@ import React , { useState} from 'react'
 import PushPinRoundedIcon from '@mui/icons-material/PushPinRounded';
 import axios from 'axios';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ArchiveTwoTone from '@mui/icons-material/ArchiveTwoTone';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { Tooltip } from '@mui/material';
 
-const PinnedNote = ({id , title , description , username , bg_color  , user_id }) => {
+const PinnedNote = ({id , title , description , username , bg_color  , user_id , handleArchieve}) => {
 
     const [open, setopen] = useState(false)
 
@@ -29,11 +33,20 @@ const PinnedNote = ({id , title , description , username , bg_color  , user_id }
 
     function DropDownItem()
     {
-        return <div className='dropdown'>
-            <p onClick={() => {
-                handleDelete()
-            }}>Delete</p>
-        </div>
+        return <Box sx={{ position: 'absolute' , width : 80 , 
+        height : 18,
+        'marginTop' : 2 ,
+        'marginLeft' : 5 ,
+        'textAlign' : 'center',
+        'cursor' : 'pointer' 
+        }}>
+<Paper elevation={6}>
+    <p onClick={() => {
+        handleDelete(id)
+    }}
+    >Delete</p>
+</Paper>
+</Box>
     }
     async function handleDelete()
     {
@@ -67,9 +80,13 @@ const PinnedNote = ({id , title , description , username , bg_color  , user_id }
         )
     }
     >
-        <p className='unpin' onClick={() => {
+        <p className='pin' onClick={() => {
             unPin(id)
-        }}><PushPinRoundedIcon/></p>
+        }}
+        style={{
+            'marginTop' : 10
+        }}
+        ><Tooltip title="Unpin"><PushPinRoundedIcon/></Tooltip></p>
         <p>
             {
                 title
@@ -80,9 +97,9 @@ const PinnedNote = ({id , title , description , username , bg_color  , user_id }
                 description
             }
         </p>
-
-        <div className='option'>
-            <MoreVertIcon onClick={() => {setopen(!open)}}/>
+        <div className='options'>
+            <p><Tooltip title="Archive"><ArchiveTwoTone onClick={() => handleArchieve(id)}/></Tooltip></p>
+            <p><MoreVertIcon onClick={() => {setopen(!open)}}/></p>
             {
                 open ? <DropDownItem />
                 : null

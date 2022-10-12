@@ -2,7 +2,7 @@ import React from 'react'
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 import axios from 'axios';
-
+import { Tooltip } from '@mui/material';
 
 const DeletedNote = ({id ,title ,description , user_id , username , bg_color}) => {
 
@@ -39,17 +39,17 @@ const DeletedNote = ({id ,title ,description , user_id , username , bg_color}) =
     <div className='notes' key={id} 
     style={bg_color === null ? (
         {
-            'backgroundColor' : 'white'
+            'backgroundColor' : 'white','height':120
         }) : (
             bg_color.length < 15 ?
                 (
                     {
-                        'backgroundColor' : bg_color
+                        'backgroundColor' : bg_color,'height':120
                     }
                 ) : 
                 (
                     {
-                        'backgroundImage' : `url(https://www.gstatic.com/keep/backgrounds/${bg_color})`
+                        'backgroundImage' : `url(https://www.gstatic.com/keep/backgrounds/${bg_color})`,'height':120
                     }
                 )
         )
@@ -58,9 +58,9 @@ const DeletedNote = ({id ,title ,description , user_id , username , bg_color}) =
                                     {title}
                                     <br/>
                                     {description}
-                                    <div className='option'>
-                                        <p onClick={() => {handleDelete()}}><DeleteForever/></p>
-                                        <p onClick={() => {handleRestore()}}><RestoreFromTrashIcon/></p>
+                                    <div className='options'>
+                                        <Tooltip title="Delete Forever"><DeleteForever onClick={() => {handleDelete()}}/></Tooltip>
+                                        <Tooltip title="Restore"><RestoreFromTrashIcon onClick={() => {handleRestore()}}/></Tooltip>
                                     </div>
      </div>
   )

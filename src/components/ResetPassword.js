@@ -14,6 +14,8 @@ const ResetPassword = (props) => {
     const [success, setsuccess] = useState(false)
 
     const [user_id, setuser_id] = useState()
+
+    const [text, settext] = useState(false)
     
 
     const USER_ID_URL = `http://localhost:8080/user/${props.location.state}`
@@ -67,9 +69,10 @@ const ResetPassword = (props) => {
                     value={newPassword} onChange={(e) => setnewPassword(e.target.value)}
                     />
                     <button onClick={() => {
-                    setPassword()
+                    setPassword() 
                     }}
-                    disabled={RESET_PASSWORD_REGEX.test(newPassword) ? false : true}>ResetPassword</button>
+                    disabled={RESET_PASSWORD_REGEX.test(newPassword) ? false : true }
+                    >Reset</button>
                 </div>
             )
         }

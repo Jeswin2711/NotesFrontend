@@ -36,18 +36,21 @@ code {
 
 .search input {
   border: none;
-  background-color: rgb(233, 233, 233);
-  width: 200%;
-  height: 30px;
+  background-color: rgb(235, 235, 235);
+  width: 250%;
+  font-size: medium;
+  font-family: sans-serif;
 }
 
 .search {
   display: flex;
-  background-color: rgb(233, 233, 233);
+  background-color: rgb(235, 235, 235);
   border-radius: 10px;
-  padding: 5px;
-  margin-left: 190px;
-  width: 50%;
+  padding: 15px 10px;
+  margin-top: 5px;
+  margin-left: 270px;
+  width: 40%;
+  height: 10%;
   align-items: center;
 }
 
@@ -56,46 +59,42 @@ code {
 {
   border-radius: 8px;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
   white-space: pre-wrap;
   word-wrap: break-word;
   border-style: groove;
+  box-shadow: 2px 2px 2px 2px lightgray;
 }
 
 
 .notes-list {
-  display: grid;
+  display: flex;
   grid-gap: 1rem;
-  /* grid-template-columns: repeat(auto-fill,
-      minmax(160px, 1fr)); */
-  position: relative;
-  margin-top: 170px;
+  grid-template-columns: repeat(auto-fill,
+      minmax(200px, 1fr));
   margin-left: 280px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  overflow: scroll;
-  min-width: 0px;
-  max-width: max-content;
 }
 
 .option
 {
   cursor: pointer;
+  font-size: medium;
+  font-family: sans-serif;
+  font-weight: 200;
+  margin-left: 20px;
   display: flex;
-  align-self :flex-end
 }
 
 .dropdown
 {
   background-color:transparent;
-  display: flex;
   margin-top: 40px;
-  position:absolute;
+  position: absolute;
   font-family: sans-serif;
   cursor: pointer;
-  border-style: ridge;
+  border-style: groove;
   width: 80px;
-  height: 30px;
+  height: 40px;
+  padding: 2px;
 }
 
 p.hover
@@ -114,8 +113,13 @@ p.hover
 {
   position: absolute;
   display: flex;
-  margin-left: 230px;
+  margin-left: 490px;
   margin-top: 80px;
+  border: none;
+  resize: none;
+  box-shadow: 2px 2px 2px 2px gainsboro;
+  padding: 5px;
+  border-radius: 2px;
 }
 
 .addnote input:focus {
@@ -131,31 +135,23 @@ p.hover
 .addnote input
 {
   width: 500px;
-  margin-left: 325px;
   border: none;
-  background-color:rgb(231, 228, 228);
   height: 40px;
-  border-radius: 5px;
   font-family: sans-serif;
   font-weight: bold;
-  font-size: large;
-  padding: 4px;
+  font-size: medium;
 }
 
 .addnote textarea
 {
   width: 500px;
-  margin-left: 325px;
   border: none;
-  background-color:rgb(231, 228, 228);
-  border-radius: 5px;
   position: static;
   resize: none;
   overflow: hidden;
   max-height: max-content;
   font-family: sans-serif;
-  font-size: medium;
-  padding: 3px;
+  font-size: 14px;
 }
 
 .addnote button
@@ -165,7 +161,7 @@ p.hover
   color: black;
   padding: 15px 32px;
   font-size: 18px;
-  margin-left: 740px;
+  margin-left: 440px;
   margin-top: -20px;
 }
 
@@ -195,23 +191,23 @@ li.nav-item {
   color: #000;
 }
 
-ul.side-bar
-{
-  color: #000;
-  font-family: sans-serif;
-}
-
 .pin
 {
   flex-direction: row;
   align-self: flex-end;
+  display: flex;
+  align-self: flex-end;
+  cursor: pointer;
 }
+
 
 
 .unpin
 {
   flex-direction: row;
   align-self: flex-end;
+  flex: auto;
+  cursor: pointer;
 }
 
 .logout
@@ -227,6 +223,14 @@ ul.side-bar
   display: flex;
 }
 
+.options
+{
+  display: flex;
+  margin-left: 130px;
+  transform: scale(0.9);
+  cursor: pointer;
+  margin-top: 50px;
+}
 
 .left-bar
 {
@@ -382,23 +386,31 @@ ul.side-bar
 
 .reset
 {
-  border-style: groove;
-  padding: 8px;
-  text-align: center;
-  margin-top: 25%;
   margin-left: 40%;
-  margin-right: 40%;
+  position: absolute;
   display: flex;
-  cursor: pointer;
+  flex-direction: column;
+  margin-top: 10%;
+  border: none;
 }
 
 .reset button
 {
-  border-style: none;
+  font-size: medium;
   font-family: sans-serif;
-  border-radius: 10px;
-  margin-left: 10%;
+  font-weight: 700;
+  border: none;
   background-color: transparent;
+  cursor: pointer;
+  border-style: groove;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.reset button:hover
+{
+  background-color: lightgreen;
 }
 
 .after-reset
@@ -422,14 +434,50 @@ ul.side-bar
   margin-right: 10%;
 }
 
+
+.colordropdown-update
+{
+  flex-direction: row;
+  position: absolute;
+  display: flex;
+  margin-top: 44px;
+  margin-left: -40%;
+  cursor: pointer;
+  border-style: groove;
+  height: 80px;
+  padding: 2px;
+  transform: scale(1.2);
+  background-color: lightgray;
+}
+
+.imgdropdown-update
+{
+  flex-direction: row;
+  position: absolute;
+  display: flex;
+  margin-top: 44px;
+  margin-left: -40%;
+  cursor: pointer;
+  border-style: groove;
+  height: 80px;
+  padding: 2px;
+  transform: scale(1.2);
+  background-color: lightgray;
+}
+
 .colordropdown
 {
   flex-direction: row;
   position: absolute;
   display: flex;
   margin-top: 44px;
-  margin-left: -15%;
+  margin-left: -270%;
   cursor: pointer;
+  border-style: groove;
+  height: 80px;
+  padding: 2px;
+  transform: scale(1.2);
+  background-color: lightgray;
 }
 
 .imgdropdown
@@ -438,11 +486,13 @@ ul.side-bar
   position: absolute;
   display: flex;
   margin-top: 70px;
-  margin-left: -15%;
+  margin-left: -270%;
   cursor: pointer;
+  padding: 4px;
+  transform: scale(1.2);
 }
 
-.colordropdown p:hover
+.bgs p:hover
 {
   border-color: #000;
   border-style: groove;
@@ -459,6 +509,8 @@ ul.side-bar
   margin-left: 10px;
 }
 
+
+
 .color-circle{
   margin-left: 10px;
   /* background-color: aquamarine */
@@ -470,3 +522,24 @@ ul.side-bar
   color: red;
 }
 
+
+
+.close-add
+{
+  text-align: right;
+  font-family: sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.notes-list-column
+{
+  height: 20%;
+  width: 40%;
+  margin-left: 30%;
+}
+
+.notes-list-column h6
+{
+  margin-left: -90px;
+}

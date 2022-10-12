@@ -2,7 +2,6 @@ import React , {useEffect, useState} from 'react'
 import Search from '../components/NotesComponent/SearchBar'
 import './css/home.css'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
 import LightbulbOutlinedIcon from '@mui/icons-material/LightbulbOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
@@ -15,13 +14,26 @@ import ArchievedNote from '../components/NotesComponent/ArchievedNote';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
 import PinnedNote from '../components/NotesComponent/PinnedNote';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import FooterComponent from '../components/Footer/FooterComponent';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ReplayIcon from '@mui/icons-material/Replay';
+import GridViewIcon from '@mui/icons-material/GridView';
+import ViewAgendaOutlinedIcon from '@mui/icons-material/ViewAgendaOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import { Tooltip } from '@mui/material';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Avatar from '@mui/material/Avatar';
+import { Link } from 'react-router-dom';
 
 
 const HomeComponent = (props) => {
 
     const [search, setsearch] = useState('')
 
-    const [showbar, setshowbar] = useState(true)
+    const [showbar, setshowbar] = useState(false)
 
     const [logoarea, setlogoarea] = useState(null)
 
@@ -54,7 +66,18 @@ const HomeComponent = (props) => {
     const [height, setheight] = useState(0)
 
     const [bgcolor, setbgcolor] = useState()
+    
+    const [clickednotes, setclickednotes] = useState(false)
 
+    const [clickedarchive, setclickedarchive] = useState(false)
+
+    const [clickeddelete, setclickeddelete] = useState(false)
+
+    const [gridchange, setgridchange] = useState(true)
+
+    const [showsetting, setshowsetting] = useState(false)
+
+    const [display, setdisplay] = useState('row')
 
     const colorStyle = {
         background : bgcolor
@@ -64,7 +87,7 @@ const HomeComponent = (props) => {
     
 
 
-    const GET_USET_ID_URL = `http://localhost:8080/user/${props.location.state}`
+    const GET_USET_ID_URL =  `http://localhost:8080/user/${props.location.state}`
 
 
     const headers = {
@@ -77,14 +100,13 @@ const HomeComponent = (props) => {
 
 
     useEffect(() => {
-
         axios.get(
             GET_USET_ID_URL ,
             headers
         )
-        .then((res) => {
+        .then(async (res) => {
             setid(res.data)
-            axios.get(
+             axios.get(
                 `http://localhost:8080/user/${id}/getnotes`,
                 headers
             )
@@ -93,15 +115,26 @@ const HomeComponent = (props) => {
                 setnotes(data);
             })}
         )
-        axios.get(`http://localhost:8080/user/${id}/getpinned`, headers ).then((res) => {
+         axios.get(`http://localhost:8080/user/${id}/getpinned`, headers ).then((res) => {
             setpinned(res.data.data);
         })
 
-        axios.get(`http://localhost:8080/user/${id}/getarchieved` , headers)
+         axios.get(`http://localhost:8080/user/${id}/getarchieved` , headers)
         .then((res) => setarchieved(res['data'].data));
 
-        axios.get(`http://localhost:8080/user/${id}/getdeleted` , headers)
+         axios.get(`http://localhost:8080/user/${id}/getdeleted` , headers)
         .then((res) => settrash(res['data'].data))
+
+        const closeAddDialogBox = (e) => {
+            if(e.path['0'].tagName !== 'INPUT')
+            {
+                setvisible(false)
+            }
+        }
+
+        document.body.addEventListener('click' , closeAddDialogBox)
+
+        return () => document.body.removeEventListener('click' , closeAddDialogBox)
 
     },[id])
 
@@ -153,27 +186,12 @@ const HomeComponent = (props) => {
         window.location.reload(true)
     }
 
-    function DropDownItem()
-    {
-        return <div className='account-dropdown'>
-            <Link to={{ 
-                                                pathname: "/reset-password",
-                                                state:props.location.state
-                                                }} >
-                                                    <p> 
-                                                        ResetPassword
-                                                    </p>
-                                                </Link>
-            <p onClick={() => {logout()}}>
-                <a href='/login'>Logout</a>
-                </p>
-        </div>
-    }
 
-    const logout = () => 
+    function logout()
     {
         localStorage.removeItem(`${props.location.state}`)
     }
+
 
     function onChangeHandler (e)
     {
@@ -182,11 +200,35 @@ const HomeComponent = (props) => {
     }
 
 
+    const style={
+        'marginLeft':10,
+        'fontFamily':'sans-serif',
+        'border':'none',
+        'outline':'none',
+        'borderRadius':20,
+        'marginTop':10,
+        'transition':'0.6s',
+        'paddingLeft':20,
+        'marginTop':-20,
+    }
+
+    const icons = {
+        'paddingLeft':20 , 
+        'transform' : 'scale(0.8)',
+        'marginTop' : -20                            
+    }
+
+    const textStyle =  {
+        'fontSize' : 11,
+        'fontStyle':'normal'
+    }
 
   return (
-    <div>
+    <div>   
         <div className='home'>
-            <p onClick={() => {setshowbar(!showbar)}} ><DensityMediumIcon/></p>
+            <p onClick={() => setshowbar(!showbar)} className="densityicon">
+                <DensityMediumIcon/>
+            </p>
             {
                 logoarea === null ?  (
                     <div className='logo'>
@@ -196,33 +238,101 @@ const HomeComponent = (props) => {
                     
                 ) : 
                 (
-                    <div className='logo-area'>
+                    <div className='logo'>
                         <p>{logoarea}</p>
                     </div>
                 )
             }
             <Search handleSearch={setsearch} />
-            <p className='account' onClick={() => {setopen(!open)}}><AccountCircleIcon/></p>
-            {
-                open ? <DropDownItem /> : null
-            }
-            <div className='side-bar'>
+            <div className='top-icons'>
+                <p><Tooltip title="Reload"><ReplayIcon onClick={() => window.location.reload(true)}/></Tooltip></p>
+                <p>
+                {
+                    gridchange ? 
+                        (
+                            <Tooltip title="Layout">
+                                <ViewAgendaOutlinedIcon onClick={() => setgridchange(!gridchange) 
+                                & setdisplay('column')}/></Tooltip>
+                            
+                        ) 
+                        : 
+                        (
+                            <Tooltip title="Layout"><GridViewIcon onClick={
+                                () => setgridchange(!gridchange) &
+                                setdisplay('row')
+                                }/></Tooltip>
+                        )
+                }
+                </p>
+                <p><SettingsOutlinedIcon onClick={() => setshowsetting(true)}/></p>
+            </div>
+            <div className="account"style={{'marginLeft' : '27%' , 'marginTop' : 14 }}>
+                <Avatar alt="J" src="/static/images/avatar/1.jpg" onClick={() => {setopen(!open)}} />
+                {
+                    open ? <Box style={{'position' : 'fixed' , }}>
+                                <Paper elevation={6} style={{
+                                    'marginLeft' : -140,
+                                    'marginTop' : 12,
+                                    'textAlign' : 'center',
+                                    'paddingRight' : 15,
+                                    'paddingLeft' : 5,
+                                    'paddingTop' : 5,
+                                    'paddingBottom' : 5,
+                                    'fontFamily' : 'sans-serif',
+                                    'fontSize' : 17,
+                                    'fontWeight' : 200
+                                }}>
+                                <Link
+                                    to={{
+                                        pathname : "/reset-password",
+                                        state : props.location.state
+                                    }}
+                                >
+                                    <a style={{
+                                    'textDecoration' : 'none',
+                                    'color' : 'black'
+                                }}> Reset Password </a>
+                                </Link>
+                                <a href='/login' style={{
+                                    'textDecoration' : 'none',
+                                    'color' : 'black'
+                                }}>
+                                    Logout
+                                </a>
+                                </Paper>
+                        </Box> : null
+                }
+            </div>
+            <div
+            className='side-bar'
+            onMouseOut={() => setshowbar(false)}
+            onMouseOver={() => {setshowbar(true)}}
+            >
                 <ul>
                     {
                         showbar ? 
                             (
-                                <div onClick={() => {setshowbar(true)}}>
+                                <div onClick={() => {setshowbar(true)}} style={{
+                                    'paddingRight':40
+
+                                }}className="tab" >
                                     <li onClick={() => {
                                             setlogoarea(null);
                                             setshownotes(true);
                                             setshowdeleted(false);
                                             setshowarchieved(false);
                                             setshowpinned(true)
-                                            }} className='bar-icon'>
-                                        <LightbulbOutlinedIcon/>
-                                        <p className='option'> 
-                                            Notes
-                                        </p> 
+                                            setclickednotes(true)
+                                            setclickedarchive(false)
+                                            setclickeddelete(false)
+                                            }} 
+                                            style={
+                                                clickednotes ? ({'backgroundColor':'rgb(255, 213, 128)'}) : ({'backgroundColor':'white'})
+                                            }
+                                            className="tab_show"
+                                            >
+                                            <LightbulbOutlinedIcon/>
+                                            <p>Notes</p>
                                     </li>
                                     <li onClick={() => {
                                         setlogoarea('Archieve');
@@ -230,25 +340,42 @@ const HomeComponent = (props) => {
                                         setshowdeleted(false);
                                         setshowarchieved(true);
                                         setshowpinned(false)
-                                        }} className='bar-icon'>
-                                            <ArchiveOutlinedIcon/> 
-                                            <p className='option'>Archieve</p>
+                                        setclickednotes(false)
+                                        setclickedarchive(true)
+                                        setclickeddelete(false)
+                                        }} style={
+                                            clickedarchive ? ({'backgroundColor':'rgb(255, 213, 128)'}) : ({'backgroundColor':'white'})
+                                        }
+                                        className="tab_show"
+                                        >
+                                            <ArchiveOutlinedIcon/>
+                                            <p>Archieve </p>
                                         </li>
                                     <li onClick={() => {
                                         setshowdeleted(true);
                                         setshownotes(false);
                                         setshowarchieved(false)
                                         setshowpinned(false)
-                                        setlogoarea('Trash')}} className='bar-icon'>
-                                            <DeleteOutlinedIcon/><p className='option'>Trash</p> 
+                                        setclickednotes(false)
+                                        setclickedarchive(false)
+                                        setclickeddelete(true)
+                                        setlogoarea('Trash')}
+                                    } 
+                                        style={
+                                            clickeddelete ? ({'backgroundColor':'rgb(255, 213, 128)'}) : ({'backgroundColor':'white'})
+                                        }
+                                        className="tab_show"
+                                        >
+                                            <DeleteOutlinedIcon/>
+                                            <p>Trash</p> 
                                     </li>
                                 </div>
                             ) :
                             (
-                                <div onClick={() => {setshowbar(true)}}>
-                                    <li className='bar-icon'><LightbulbOutlinedIcon/></li>
-                                    <li className='bar-icon'><ArchiveOutlinedIcon/></li>
-                                    <li className='bar-icon'><DeleteOutlinedIcon/></li>
+                                <div className='bar-icon'>
+                                    <li><LightbulbOutlinedIcon/></li>
+                                    <li><ArchiveOutlinedIcon/></li>
+                                    <li><DeleteOutlinedIcon/></li>
                                 </div>
                             )
                     }
@@ -283,21 +410,13 @@ const HomeComponent = (props) => {
         </div> 
         <div>
         {
-            showpinned ? 
+            pinned.length !== 0 ? 
             (
-                pinned.length !== 0 ? 
+                showpinned ? 
                 (
-                    <div className='notes-list' 
-                    style={height === NaN || height < 20 || height === undefined? 
-                        (
-                            {
-                                'marginTop' : 150
-                            }
-                        ) : (
-                            {
-                                'marginTop' : height + 140
-                            }
-                        )}>
+                    <div className={display === 'column' ? 'notes-list-column' : 'notes-list'} style={
+                        height === 0 ? ({'marginTop' : 170 , flexDirection:display}) : (height !== 0 ? ({'marginTop' : 150 + height}) : null) 
+                    }>
                         <h6 style={{
                             'position' : 'absolute',
                             'marginTop' : -30,
@@ -310,7 +429,8 @@ const HomeComponent = (props) => {
                                 <PinnedNote id = {note.id} title = {note.title} description = {note.description} handleDelete={handleDelete} 
                                 username={props.location.state} 
                                 bg_color = {note.color}
-                                user_id = {id}
+                                user_id = {id} 
+                                handleArchieve = {handleArchieve}
                                 />
                             </div>
                             )
@@ -337,29 +457,18 @@ const HomeComponent = (props) => {
         {
             shownotes ? 
             (
-                <div className='notes-list' style={
-                    showpinned || height === undefined || height < 20? ({
-                        'marginTop' : 50 + height
-                    }) : (
-                        height === undefined ? ({
-                            'marginTop' : '170px'
-                        }) : (
-                            height === NaN || height < 20 ? (
-                                {
-                                    'marginTop' : '170px'
-                                }
-                            ) : 
-                            (
-                                {
-                                    'marginTop' : height + 120
-                                }
-                            )
-                        )
+                <div className={display === 'column' ? 'notes-list-column' : 'notes-list'}
+                style={
+                    height === 0 & pinned.length !== 0 ? ({'marginTop' : 10 , flexDirection:display}) : 
+                    (
+                        height === 0 & pinned.length === 0 ? ({'marginTop' : 170 , flexDirection:display}) : (height !== 0 & pinned.length === 0? ({'marginTop' : 170 + height , flexDirection:display}) : null)
                     )
-                    }>
+                }
+                >
                         {
                         notes.filter((note) => note.title.includes(search) || note.description.includes(search))   
-                            .map((note) => <div  key={note.id} style={colorStyle}><Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
+                            .map((note) => <div  key={note.id} style={colorStyle}>
+                                <Note id={note.id} title={note.title} description={note.description} handleDelete={handleDelete}
                                 handleArchieve={handleArchieve} handlePin={handlePin} username={props.location.state} headers={headers} user_id = {id}/> 
                                 </div>)
                             }
@@ -373,7 +482,8 @@ const HomeComponent = (props) => {
             (
                 trash.length !== 0 ? (
                     <div className='notes-list' style={{
-                        'marginTop' : '70px'
+                        'marginTop' : '70px',
+                        'flexDirection':display
                     }}>
                         {
                             trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
@@ -401,7 +511,7 @@ const HomeComponent = (props) => {
                 archieved.length !== 0 ? 
                 (
                     <div className='notes-list' style={{
-                        'marginTop' : '-70px'
+                        'marginTop' : '70px'
                     }}>
                         {
                             archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
