@@ -266,8 +266,8 @@ const HomeComponent = (props) => {
                 </p>
                 <p><SettingsOutlinedIcon onClick={() => setshowsetting(true)}/></p>
             </div>
-            <div className="account"style={{'marginLeft' : '27%' , 'marginTop' : 14 }}>
-                <Avatar alt="J" src="/static/images/avatar/1.jpg" onClick={() => {setopen(!open)}} />
+            <div className="account"style={{'marginLeft' : '33%' , 'marginTop' : 14 }}>
+                <Avatar alt="J" src="https://st3.depositphotos.com/32100976/34458/i/600/depositphotos_344585916-stock-photo-anime-wallpapers-black-white-anime.jpg" onClick={() => {setopen(!open)}} />
                 {
                     open ? <Box style={{'position' : 'fixed' , }}>
                                 <Paper elevation={6} style={{
@@ -287,11 +287,12 @@ const HomeComponent = (props) => {
                                         pathname : "/reset-password",
                                         state : props.location.state
                                     }}
+                                    style={{
+                                        'textDecoration' : 'none',
+                                        'color' : 'black'
+                                    }}
                                 >
-                                    <a style={{
-                                    'textDecoration' : 'none',
-                                    'color' : 'black'
-                                }}> Reset Password </a>
+                                    <a > Reset Password </a>
                                 </Link>
                                 <a href='/login' style={{
                                     'textDecoration' : 'none',
@@ -486,10 +487,11 @@ const HomeComponent = (props) => {
                         'flexDirection':display
                     }}>
                         {
-                            trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
-                                (note) =>  
+                            trash.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search))
+                            .map(
+                                (note) =>  <div key={note.id}>
                                 <DeletedNote id={note.id} title={note.title} description={note.description} 
-                                user_id={id} username={props.location.state} bg_color={note.color}/>
+                                user_id={id} username={props.location.state} bg_color={note.color}/></div>
                                 )
                         }
                     </div>
@@ -515,11 +517,11 @@ const HomeComponent = (props) => {
                     }}>
                         {
                             archieved.filter((note) => note.title.toLowerCase().includes(search) || note.description.toLowerCase().includes(search)).map(
-                                (note) => 
+                                (note) => <div key={note.id}>
                                 <ArchievedNote id={note.id} title={note.title} description={note.description} user_id={id} 
                                 username={props.location.state} 
                                 handleDelete={handleDelete}
-                                bg_color={note.color}/>
+                                bg_color={note.color}/></div>
                                 )
                         }
                     </div>

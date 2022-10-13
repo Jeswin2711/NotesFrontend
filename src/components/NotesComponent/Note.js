@@ -402,10 +402,11 @@ const Note = ({id ,title ,description , handleDelete , handleArchieve , username
                             <Tooltip title="Pin" className='pin'><PushPinOutlinedIcon/></Tooltip>
                         </p>
                         <div onClick={() => {seteditable(!editable)}}>
-                            {notetitle}
+                            <p style={{'fontWeight': 500}}>{notetitle}</p>
                             <br/>
-                            {notedescription}
+                            <p style={{'fontWeight': 300}}>{notedescription}</p>
                         </div>
+                        <br/>
                         <div className='options'>
                             <p><Tooltip title="Color"><ColorLensIcon onClick={() => {setcolorpalette(!colorpalette)}}/></Tooltip></p>
                             {

@@ -58,7 +58,7 @@ const ArchievedNote = ({id ,title ,description , user_id , username , bg_color})
     }
 
   return (
-        <div className='notes' key={id} 
+        <div className='notes' 
         style={
             bg_color === null ? (
             {
@@ -79,9 +79,9 @@ const ArchievedNote = ({id ,title ,description , user_id , username , bg_color})
         }
         >
             <div>
-                {title}
+                <p style={{'fontWeight': 500}}>{title}</p>
                 <br/>
-                {description}
+                <p style={{'fontWeight': 300}}>{description}</p>
             </div>
             <div className='options'>
                 <p><Tooltip title="UnArchive"><UnarchiveIcon onClick={() => {handleUnArchieve()}}/></Tooltip></p>

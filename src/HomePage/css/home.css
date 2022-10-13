@@ -25,6 +25,9 @@
 .account
 {
     transform: scale(0.8);
+    cursor: pointer;
+    
+
 }
 
 
@@ -110,6 +113,7 @@
 }
 
 
+
 .notes-area
 {
     text-align: center;
@@ -179,6 +183,7 @@
     position: absolute;
     margin-left: 75%;
     transform: scale(1.2);
+    cursor: pointer;
 }
 
 .top-icons p {

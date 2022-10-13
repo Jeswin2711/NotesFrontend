@@ -62,15 +62,15 @@ code {
   white-space: pre-wrap;
   word-wrap: break-word;
   border-style: groove;
-  box-shadow: 2px 2px 2px 2px lightgray;
+  font-family: sans-serif;
+
 }
 
 
 .notes-list {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(200px, 1fr));
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill,
-      minmax(200px, 1fr));
   margin-left: 280px;
 }
 
@@ -193,10 +193,7 @@ li.nav-item {
 
 .pin
 {
-  flex-direction: row;
-  align-self: flex-end;
-  display: flex;
-  align-self: flex-end;
+  justify-content: flex-end;
   cursor: pointer;
 }
 
@@ -226,11 +223,11 @@ li.nav-item {
 .options
 {
   display: flex;
-  margin-left: 130px;
-  transform: scale(0.9);
-  cursor: pointer;
-  margin-top: 50px;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 5px;
 }
+
 
 .left-bar
 {
